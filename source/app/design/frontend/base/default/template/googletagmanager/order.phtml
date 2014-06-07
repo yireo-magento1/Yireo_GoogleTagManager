@@ -1,0 +1,25 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento 
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
+ * @license     Open Software License
+ */
+?>
+<?php if($this->isEnabled()) : ?>
+<script>
+<?php $order = $this->getOrder(); ?>
+<?php if(!empty($order) && $order->getId() > 0) : ?>
+dataLayer = [{
+    'transactionId': '<?php echo $order->getIncrementId(); ?>',
+    'transactionAffiliation': '<?php echo Mage::app()->getWebsite()->getName(); ?>',
+    'transactionTotal': <?php echo $order->getGrandTotal(); ?>,
+    'transactionTax': <?php echo $order->getGrandTotal() - $order->getSubtotal(); ?>,
+    'transactionShipping': <?php echo $order->getShippingAmount(); ?>,
+    'transactionProducts': <?php echo $this->getItemsAsJson(); ?>
+}];
+<?php endif; ?>
+</script>
+<?php endif; ?>
