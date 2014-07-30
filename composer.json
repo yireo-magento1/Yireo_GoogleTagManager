@@ -1,0 +1,29 @@
+{
+    "name": "yireo/yireo_googletagmanager",
+    "license": "OSL-3.0",
+    "type": "magento-module",
+    "homepage": "https://www.yireo.com/software/magento-extensions/google-tag-manager",
+    "description": "Implement Google Tag Manager in Magento",
+    "authors": [
+        {
+            "name": "Jisse Reitsma (Yireo)",
+            "email": "jisse@yireo.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev":{
+        "phpunit/phpunit":"*",
+        "composer/composer":"*@dev"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.firegento.com"
+        }
+    ],
+    "extra":{
+        "magento-root-dir": "source/"
+    }
+}
