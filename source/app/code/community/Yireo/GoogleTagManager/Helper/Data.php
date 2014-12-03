@@ -42,7 +42,7 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
         if(!empty($lastOrderId)) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderId);
             $orderBlock = $layout->getBlock('googletagmanager_order');
-            $orderBlock->setQuote($order);
+            $orderBlock->setOrder($order);
             $html .= $orderBlock->toHtml();
 
         // Add quote-information
