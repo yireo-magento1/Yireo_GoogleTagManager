@@ -5,14 +5,23 @@
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright (c) 2012 Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
  * @license     Open Source License (OSL)
  */
  -->
 <layout>
     <default>
-        <block type="googletagmanager/default" name="googletagmanager" template="googletagmanager/default.phtml" />
         <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/order.phtml" />
         <block type="googletagmanager/quote" name="googletagmanager_quote" template="googletagmanager/quote.phtml" />
+        <block type="googletagmanager/product" name="googletagmanager_product" template="googletagmanager/product.phtml" />
+        <block type="googletagmanager/category" name="googletagmanager_category" template="googletagmanager/category.phtml" />
+        <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/custom.phtml" />
+        <block type="googletagmanager/default" name="googletagmanager" template="googletagmanager/default.phtml" />
+
+        <!--
+        <reference name="after_body_start">
+            <block type="googletagmanager/script" name="googletagmanager" />
+        </reference>
+        -->
     </default>
 </layout>

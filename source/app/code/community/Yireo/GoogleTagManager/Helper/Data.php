@@ -25,16 +25,36 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getHeaderScript()
     {
-        $html = '';
+        $childScript = '';
 
         // Check for the frontend layout
         if (!($layout = Mage::app()->getFrontController()->getAction()->getLayout())) {
-            return $html;
+            return $childScript;
         }
 
         // Check for the Google Tag Manager block
         if (!($block = $layout->getBlock('googletagmanager'))) {
-            return $html;
+            return $childScript;
+        }
+
+        // Add product-information
+        $currentProduct = Mage::registry('current_product');
+        if(!empty($currentProduct)) {
+            $productBlock = $layout->getBlock('googletagmanager_product');
+            if($productBlock) {
+                $productBlock->setProduct($currentProduct);
+                $childScript .= $productBlock->toHtml();
+            }
+        }
+
+        // Add category-information
+        $currentCategory = Mage::registry('current_category');
+        if(!empty($currentCategory)) {
+            $categoryBlock = $layout->getBlock('googletagmanager_category');
+            if($categoryBlock) {
+                $categoryBlock->setCategory($currentCategory);
+                $childScript .= $categoryBlock->toHtml();
+            }
         }
 
         // Add order-information
@@ -42,20 +62,31 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
         if(!empty($lastOrderId)) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderId);
             $orderBlock = $layout->getBlock('googletagmanager_order');
-            $orderBlock->setOrder($order);
-            $html .= $orderBlock->toHtml();
+            if($orderBlock) {
+                $orderBlock->setOrder($order);
+                $childScript .= $orderBlock->toHtml();
+            }
 
         // Add quote-information
         } else {
             $quote = Mage::getModel('checkout/cart')->getQuote();
             if($quote->getId() > 0) {
                 $quoteBlock = $layout->getBlock('googletagmanager_quote');
-                $quoteBlock->setQuote($quote);
-                $html .= $quoteBlock->toHtml();
+                if($quoteBlock) {
+                    $quoteBlock->setQuote($quote);
+                    $childScript .= $quoteBlock->toHtml();
+                }
             }
         }
 
-        $html .= $block->toHtml();
+        // Add custom information
+        $customBlock = $layout->getBlock('googletagmanager_custom');
+        if($customBlock) {
+            $childScript .= $customBlock->toHtml();
+        }
+
+        $block->setChildScript($childScript);
+        $html = $block->toHtml();
         return $html;
     }
 }

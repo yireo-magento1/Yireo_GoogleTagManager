@@ -9,16 +9,12 @@
  */
 ?>
 <?php if($this->isEnabled()) : ?>
-<script>
 <?php $quote = $this->getQuote(); ?>
 <?php if(!empty($quote) && $quote->getId() > 0) : ?>
-dataLayer = [{
-    'transactionId': '<?php echo $quote->getId(); ?>',
-    'transactionAffiliation': '<?php echo Mage::app()->getWebsite()->getName(); ?>',
-    'transactionTotal': <?php echo $quote->getGrandTotal(); ?>,
-    'transactionTax': <?php echo $quote->getGrandTotal() - $quote->getSubtotal(); ?>,
-    'transactionProducts': <?php echo $this->getItemsAsJson(); ?>
-}];
+    <?php $this->setAttribute('transactionId', $quote->getId()); ?>
+    <?php $this->setAttribute('transactionAffiliation', Mage::app()->getWebsite()->getName()); ?>
+    <?php $this->setAttribute('transactionTotal', $quote->getGrandTotal()); ?>
+    <?php $this->setAttribute('transactionTax', $quote->getGrandTotal() - $quote->getSubtotal()); ?>
+    <?php $this->setAttribute('transactionProducts', $this->getItemsAsJson()); ?>
 <?php endif; ?>
-</script>
 <?php endif; ?>
