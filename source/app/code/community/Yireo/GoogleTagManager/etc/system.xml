@@ -6,11 +6,17 @@
  * @category    design_default
  * @package     Yireo_GoogleTagManager
  * @author      Yireo
- * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
+ * @copyright   Copyright 2015 Yireo (http://www.yireo.com/)
  * @license     Open Source License (OSL v3)
  */
 -->
 <config>
+    <tabs>
+        <yireo translate="label" module="googletagmanager">
+            <label>Yireo</label>
+            <sort_order>900</sort_order>
+        </yireo>
+    </tabs>
     <sections>
         <googletagmanager translate="label" module="googletagmanager">
             <label>Google Tag Manager</label>
