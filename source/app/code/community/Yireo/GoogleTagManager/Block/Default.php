@@ -42,7 +42,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
 
     public function addAttribute($name, $value)
     {
-        Mage::getSingleton('googletagmanager/container')->setData($name, $value);
+        return Mage::getSingleton('googletagmanager/container')->setData($name, $value);
     }
 
     public function getAttributes()
