@@ -11,8 +11,8 @@
 <?php if($this->isEnabled()) : ?>
 <?php $product = $this->getProduct(); ?>
 <?php if(!empty($product) && $product->getId() > 0) : ?>
-    <?php $this->setAttribute('productId', $product->getId()); ?>
-    <?php $this->setAttribute('productName', $product->getName()); ?>
-    <?php $this->setAttribute('productSku', $product->getSku()); ?>
+    <?php $this->addAttribute('productId', $product->getId()); ?>
+    <?php $this->addAttribute('productName', $product->getName()); ?>
+    <?php $this->addAttribute('productSku', $product->getSku()); ?>
 <?php endif; ?>
 <?php endif; ?>

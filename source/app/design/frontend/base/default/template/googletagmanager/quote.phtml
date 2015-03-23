@@ -11,10 +11,10 @@
 <?php if($this->isEnabled()) : ?>
 <?php $quote = $this->getQuote(); ?>
 <?php if(!empty($quote) && $quote->getId() > 0) : ?>
-    <?php $this->setAttribute('transactionId', $quote->getId()); ?>
-    <?php $this->setAttribute('transactionAffiliation', Mage::app()->getWebsite()->getName()); ?>
-    <?php $this->setAttribute('transactionTotal', $quote->getGrandTotal()); ?>
-    <?php $this->setAttribute('transactionTax', $quote->getGrandTotal() - $quote->getSubtotal()); ?>
-    <?php $this->setAttribute('transactionProducts', $this->getItemsAsJson()); ?>
+    <?php $this->addAttribute('transactionId', $quote->getId()); ?>
+    <?php $this->addAttribute('transactionAffiliation', Mage::app()->getWebsite()->getName()); ?>
+    <?php $this->addAttribute('transactionTotal', $quote->getGrandTotal()); ?>
+    <?php $this->addAttribute('transactionTax', $quote->getGrandTotal() - $quote->getSubtotal()); ?>
+    <?php $this->addAttribute('transactionProducts', $this->getItemsAsJson()); ?>
 <?php endif; ?>
 <?php endif; ?>

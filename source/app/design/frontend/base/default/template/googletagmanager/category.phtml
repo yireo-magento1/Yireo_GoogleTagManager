@@ -11,7 +11,7 @@
 <?php if($this->isEnabled()) : ?>
 <?php $category = $this->getCategory(); ?>
 <?php if(!empty($category) && $category->getId() > 0) : ?>
-    <?php $this->setAttribute('categoryId', $category->getId()); ?>
-    <?php $this->setAttribute('categoryName', $category->getName()); ?>
+    <?php $this->addAttribute('categoryId', $category->getId()); ?>
+    <?php $this->addAttribute('categoryName', $category->getName()); ?>
 <?php endif; ?>
 <?php endif; ?>
