@@ -10,9 +10,13 @@
 
 class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_Default
 {
-    public function getItemsAsJson()
+    /**
+     * @return array
+     */
+    public function getItems()
     {
         $data = array();
+
         foreach($this->getOrder()->getAllItems() as $item) {
             $data[] = array(
                 'sku' => $item->getSku(),
@@ -21,6 +25,14 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
                 'quantity' => $item->getQtyOrdered(),
             );
         }
+
+        return $data;
+    }
+
+    public function getItemsAsJson()
+    {
+        $data = $this->getItems();
+
         return json_encode($data);
     }
 }
