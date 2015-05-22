@@ -1,5 +1,5 @@
 # Modman file
-source/app/code/community/Yireo/GoogleTagManager app/code/community/Yireo/GoogleTagManager
-source/app/etc/modules/Yireo_GoogleTagManager.xml app/etc/modules/Yireo_GoogleTagManager.xml
+source/app/code/community/Yireo/GoogleTagManager                    app/code/community/Yireo/GoogleTagManager
+source/app/etc/modules/Yireo_GoogleTagManager.xml                   app/etc/modules/Yireo_GoogleTagManager.xml
 source/app/design/frontend/base/default/layout/googletagmanager.xml app/design/frontend/base/default/layout/googletagmanager.xml
-source/app/design/frontend/base/default/template/googletagmanager app/design/frontend/base/default/template/googletagmanager
+source/app/design/frontend/base/default/template/googletagmanager   app/design/frontend/base/default/template/googletagmanager
