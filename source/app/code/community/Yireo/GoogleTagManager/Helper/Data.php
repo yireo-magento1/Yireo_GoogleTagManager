@@ -17,11 +17,10 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
         return $value;
     }
 
-    /*
+    /**
      * Usage: 
      *   echo Mage::helper('googletagmanager')->getHtml($arguments);
      *   $arguments is an associative array (size, count, url)
-    
      */
     public function getHeaderScript()
     {

@@ -10,7 +10,10 @@
 
 class Yireo_GoogleTagManager_Block_Script extends Mage_Core_Block_Abstract
 {
-    public function toHtml()
+    /**
+     * @return mixed
+     */
+    protected function _toHtml()
     {
         return Mage::helper('googletagmanager')->getHeaderScript();
     }
