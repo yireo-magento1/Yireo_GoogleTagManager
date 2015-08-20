@@ -8,10 +8,6 @@
  * @license     Open Source License (OSL v3)
  */
 
-class Yireo_GoogleTagManager_Block_Script extends Yireo_GoogleTagManager_Block_Default
+class Yireo_GoogleTagManager_Block_Customer extends Yireo_GoogleTagManager_Block_Default
 {
-    public function getScript()
-    {
-        return Mage::helper('googletagmanager')->getHeaderScript();
-    }
 }

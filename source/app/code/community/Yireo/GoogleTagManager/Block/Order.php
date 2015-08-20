@@ -18,10 +18,12 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
         $data = array();
 
         foreach($this->getOrder()->getAllItems() as $item) {
+            $product = $item->getProduct();
             $data[] = array(
                 'sku' => $item->getSku(),
                 'name' => $item->getName(),
                 'price' => $item->getPrice(),
+                'category' => implode('|', $product->getCategoryIds()),
                 'quantity' => $item->getQtyOrdered(),
             );
         }

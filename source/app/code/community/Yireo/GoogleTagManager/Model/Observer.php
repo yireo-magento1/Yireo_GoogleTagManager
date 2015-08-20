@@ -18,6 +18,10 @@ class Yireo_GoogleTagManager_Model_Observer
      */
     public function coreBlockAbstractToHtmlAfter($observer)
     {
+        if ($this->getHelper()->isMethodObserver() == false) {
+            return $this;
+        }
+
         $block = $observer->getEvent()->getBlock();
         if($block->getNameInLayout() == 'root') {
 
@@ -25,11 +29,26 @@ class Yireo_GoogleTagManager_Model_Observer
             $html = $transport->getHtml();
 
             $script = Mage::helper('googletagmanager')->getHeaderScript();
+
+            if (empty($script)) {
+                $this->getHelper()->debug('Observer: Empty script');
+                return $this;
+            }
+
             $html = preg_replace('/\<body([^\>]+)\>/', '\0'.$script, $html);
+            $this->getHelper()->debug('Observer: Replacing header');
 
             $transport->setHtml($html);
         }
 
         return $this;
+    }
+
+    /**
+     * @return Yireo_GoogleGears_Helper_Data
+     */
+    public function getHelper()
+    {
+        return Mage::helper('googletagmanager');
     }
 }

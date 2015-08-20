@@ -11,11 +11,16 @@
 <?php if ($this->isEnabled()) : ?>
     <?php $order = $this->getOrder(); ?>
     <?php if (!empty($order) && $order->getId() > 0) : ?>
+        <?php $this->addAttribute('transactionEntity', 'ORDER'); ?>
         <?php $this->addAttribute('transactionId', $order->getIncrementId()); ?>
+        <?php $this->addAttribute('transactionDate', $order->getCreatedAt()); ?>
         <?php $this->addAttribute('transactionAffiliation', Mage::app()->getWebsite()->getName()); ?>
         <?php $this->addAttribute('transactionTotal', $order->getGrandTotal()); ?>
         <?php $this->addAttribute('transactionTax', $order->getGrandTotal() - $order->getSubtotal()); ?>
         <?php $this->addAttribute('transactionShipping', $order->getShippingAmount()); ?>
+        <?php $this->addAttribute('transactionPayment', $order->getPayment()->getMethodInstance()->getTitle()); ?>
+        <?php $this->addAttribute('transactionCurrency', Mage::app()->getStore()->getBaseCurrencyCode()); ?>
+        <?php $this->addAttribute('transactionPromoCode', $order->getCouponCode()); ?>
         <?php $this->addAttribute('transactionProducts', $this->getItems()); ?>
     <?php endif; ?>
 <?php endif; ?>

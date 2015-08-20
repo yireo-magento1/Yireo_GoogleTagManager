@@ -11,17 +11,19 @@
  -->
 <layout>
     <default>
+        <block type="googletagmanager/customer" name="googletagmanager_customer" template="googletagmanager/customer.phtml" />
         <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/order.phtml" />
         <block type="googletagmanager/quote" name="googletagmanager_quote" template="googletagmanager/quote.phtml" />
         <block type="googletagmanager/product" name="googletagmanager_product" template="googletagmanager/product.phtml" />
         <block type="googletagmanager/category" name="googletagmanager_category" template="googletagmanager/category.phtml" />
         <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/custom.phtml" />
         <block type="googletagmanager/default" name="googletagmanager" template="googletagmanager/default.phtml" />
+        <block type="googletagmanager/script" name="googletagmanager_script" template="googletagmanager/script.phtml" />
 
-        <!--
         <reference name="after_body_start">
-            <block type="googletagmanager/script" name="googletagmanager" />
+            <action method="append" ifconfig="googletagmanager/settings/method">
+                <block>googletagmanager_script</block>
+            </action>
         </reference>
-        -->
     </default>
 </layout>
