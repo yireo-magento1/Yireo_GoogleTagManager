@@ -13,8 +13,10 @@
     <?php $customerGroup = $this->getCustomerGroup(); ?>
     <?php if(!empty($customer) && $customer->getId() > 0) : ?>
         <?php $this->addAttribute('customerLoggedIn', 1); ?>
-            <?php else: ?>
+        <?php $this->addAttribute('customerId', $customer->getId()); ?>
+    <?php else: ?>
         <?php $this->addAttribute('customerLoggedIn', 0); ?>
+        <?php $this->addAttribute('customerId', 0); ?>
     <?php endif; ?>
     <?php $this->addAttribute('customerGroupId', $customerGroup->getId()); ?>
     <?php $this->addAttribute('customerGroupCode', strtoupper($customerGroup->getCustomerGroupCode())); ?>
