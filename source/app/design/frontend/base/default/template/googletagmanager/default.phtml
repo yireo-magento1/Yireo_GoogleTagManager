@@ -7,8 +7,14 @@
  * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
  * @license     Open Software License
  */
+
+$moduleName = $this->getRequest()->getModuleName();
+$controllerName = $this->getRequest()->getControllerName();
+$actionName = $this->getRequest()->getActionName();
+$route = $moduleName.'/'.$controllerName.'/'.$actionName;
 ?>
 <?php if ($this->isEnabled()) : ?>
+    <?php $this->addAttribute('pageType', $route); ?>
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=<?= $this->getId(); ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
