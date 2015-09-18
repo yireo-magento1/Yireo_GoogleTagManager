@@ -14,6 +14,7 @@
         <?php $this->addAttribute('transactionId', $order->getIncrementId()); ?>
         <?php $this->addAttribute('transactionAffiliation', Mage::app()->getWebsite()->getName()); ?>
         <?php $this->addAttribute('transactionTotal', $order->getGrandTotal()); ?>
+        <?php $this->addAttribute('transactionSubtotal', $order->getSubtotal()); ?>
         <?php $this->addAttribute('transactionTax', $order->getGrandTotal() - $order->getSubtotal()); ?>
         <?php $this->addAttribute('transactionShipping', $order->getShippingAmount()); ?>
         <?php $this->addAttribute('transactionProducts', $this->getItems()); ?>
