@@ -15,6 +15,10 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isEnabled()
     {
+        if ((bool)Mage::getStoreConfig('advanced/modules_disable_output/Yireo_GoogleTagManager')) {
+            return false;
+        }
+
         return (bool)$this->gertConfigValue('enabled');
     }
 
@@ -110,7 +114,7 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $childScript = '';
 
-        // Check for the frontend layout
+        // Load the main script
         if (!($block = $this->fetchBlock('default', 'default', 'default.phtml'))) {
             return $childScript;
         }

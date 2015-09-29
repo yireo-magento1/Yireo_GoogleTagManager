@@ -18,10 +18,11 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
         $data = array();
 
         foreach($this->getOrder()->getAllItems() as $item) {
-        	// only add composed types once
+        	// Only add composed types once
         	if( $item->getParentItemId() ) {
 				continue; 
 			}
+
             $product = $item->getProduct();
             $data[] = array(
                 'sku' => $item->getSku(),
