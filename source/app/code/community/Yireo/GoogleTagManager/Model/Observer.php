@@ -18,6 +18,10 @@ class Yireo_GoogleTagManager_Model_Observer
      */
     public function coreBlockAbstractToHtmlAfter($observer)
     {
+        if ($this->getHelper()->isEnabled() == false) {
+            return $this;
+        }
+
         if ($this->getHelper()->isMethodObserver() == false) {
             return $this;
         }
@@ -47,7 +51,7 @@ class Yireo_GoogleTagManager_Model_Observer
     /**
      * @return Yireo_GoogleGears_Helper_Data
      */
-    public function getHelper()
+    protected function getHelper()
     {
         return Mage::helper('googletagmanager');
     }

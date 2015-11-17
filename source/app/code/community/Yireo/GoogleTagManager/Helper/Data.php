@@ -15,11 +15,11 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isEnabled()
     {
-        if ((bool)Mage::getStoreConfig('advanced/modules_disable_output/Yireo_GoogleTagManager')) {
+        if ((bool) Mage::getStoreConfig('advanced/modules_disable_output/Yireo_GoogleTagManager')) {
             return false;
         }
 
-        return (bool)$this->gertConfigValue('enabled');
+        return (bool)$this->getConfigValue('enabled');
     }
 
     /**
