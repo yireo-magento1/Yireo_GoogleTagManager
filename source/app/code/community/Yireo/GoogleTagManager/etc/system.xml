@@ -71,6 +71,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </debug>
+                        <category_products translate="label">
+                            <label>Load Products in Category</label>
+                            <comment><![CDATA[Number of products to load in a specific category overview. 0 to disable]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </category_products>
                     </fields>
                 </settings>
             </groups>
