@@ -4,11 +4,14 @@
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (c) 2015 Yireo (http://www.yireo.com/)
  * @license     Open Software License
  */
 
-$productCollection = $this->getLoadedProductCollection();
+$loadProducts = (int) Mage::helper('googletagmanager')->getConfigValue('category_products');
+if ($loadProducts > 0) {
+    $productCollection = $this->getLoadedProductCollection();
+}
 ?>
 <?php if($this->isEnabled()) : ?>
     <?php $category = $this->getCategory(); ?>
@@ -21,7 +24,7 @@ $productCollection = $this->getLoadedProductCollection();
         <?php $categoryProducts = array(); ?>
         <?php $i = 0; ?>
         <?php foreach($productCollection as $product) : ?>
-            <?php if ($i > 3) continue; ?>
+            <?php if ($i > $loadProducts) break; ?>
             <?php $categoryProduct = array(); ?>
             <?php $categoryProduct['id'] = $product->getId(); ?>
             <?php $categoryProduct['name'] = $product->getName(); ?>
