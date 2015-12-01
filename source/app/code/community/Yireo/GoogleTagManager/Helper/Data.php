@@ -19,7 +19,7 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        return (bool)$this->getConfigValue('enabled');
+        return (bool)$this->getConfigValue('active');
     }
 
     /**
