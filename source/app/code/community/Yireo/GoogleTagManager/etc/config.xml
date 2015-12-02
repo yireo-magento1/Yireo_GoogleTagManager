@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Yireo_GoogleTagManager>
-            <version>1.3.5</version>
+            <version>1.3.6</version>
         </Yireo_GoogleTagManager>
     </modules>
 
@@ -81,7 +81,7 @@
     <default>
         <googletagmanager>
             <settings>
-                <enabled>1</enabled>
+                <active>1</active>
                 <method>1</method>
                 <category_products>3</category_products>
             </settings>

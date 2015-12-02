@@ -19,7 +19,7 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        return (bool)$this->getConfigValue('enabled');
+        return (bool)$this->getConfigValue('active', false);
     }
 
     /**
@@ -76,7 +76,10 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
     public function getConfigValue($key = null, $default_value = null)
     {
         $value = Mage::getStoreConfig('googletagmanager/settings/' . $key);
-        if (empty($value)) $value = $default_value;
+        if (empty($value)) {
+            $value = $default_value;
+        }
+
         return $value;
     }
 
