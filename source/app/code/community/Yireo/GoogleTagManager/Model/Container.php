@@ -8,6 +8,9 @@
  * @license     Open Source License (OSL v3)
  */
 
+/**
+ * Class Yireo_GoogleTagManager_Model_Container
+ */
 class Yireo_GoogleTagManager_Model_Container extends Mage_Core_Model_Abstract
 {
 }

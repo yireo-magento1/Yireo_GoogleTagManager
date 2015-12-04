@@ -49,7 +49,9 @@ class Yireo_GoogleTagManager_Model_Observer
     }
 
     /**
-     * @return Yireo_GoogleGears_Helper_Data
+     * Return the helper class
+     *
+     * @return Yireo_GoogleTagManager_Helper_Data
      */
     protected function getHelper()
     {

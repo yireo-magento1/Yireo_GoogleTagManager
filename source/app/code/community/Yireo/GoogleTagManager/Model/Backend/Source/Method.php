@@ -8,6 +8,9 @@
  * @license     Open Source License (OSL v3)
  */
 
+/**
+ * Class Yireo_GoogleTagManager_Model_Backend_Source_Method
+ */
 class Yireo_GoogleTagManager_Model_Backend_Source_Method
 {
     /**

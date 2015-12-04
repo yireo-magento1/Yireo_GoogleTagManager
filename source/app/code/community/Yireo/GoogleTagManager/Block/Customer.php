@@ -8,6 +8,9 @@
  * @license     Open Source License (OSL v3)
  */
 
+/**
+ * Class Yireo_GoogleTagManager_Block_Customer
+ */
 class Yireo_GoogleTagManager_Block_Customer extends Yireo_GoogleTagManager_Block_Default
 {
 }

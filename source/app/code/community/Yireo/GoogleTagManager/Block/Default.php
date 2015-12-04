@@ -8,33 +8,44 @@
  * @license     Open Source License (OSL v3)
  */
 
+/**
+ * Class Yireo_GoogleTagManager_Block_Default
+ */
 class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
 {
     /**
+     * Return whether this module is enabled or not
+     *
      * @return bool
      */
     public function isEnabled()
     {
-        return (bool)$this->getConfig('active');
+        return $this->getHelper()->isEnabled();
     }
 
     /**
+     * Check whether this module is in debugging mode
+     *
      * @return bool
      */
     public function isDebug()
     {
-        return (bool)$this->getConfig('debug');
+        return $this->getHelper()->isDebug();
     }
 
     /**
+     * Get the GA ID
+     *
      * @return mixed
      */
     public function getId()
     {
-        return $this->getConfig('id');
+        return $this->getHelper()->getId();
     }
 
     /**
+     * Return a configuration value
+     *
      * @param null $key
      * @param null $default_value
      *
@@ -42,10 +53,32 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function getConfig($key = null, $default_value = null)
     {
-        return Mage::helper('googletagmanager')->getConfigValue($key, $default_value);
+        return $this->getHelper()->getConfigValue($key, $default_value);
     }
 
     /**
+     * Get the GA helper
+     *
+     * @return Yireo_GoogleTagManager_Helper_Data
+     */
+    public function getHelper()
+    {
+        return Mage::helper('googletagmanager');
+    }
+
+    /**
+     * Get the GA container
+     *
+     * @return Yireo_GoogleTagManager_Model_Container
+     */
+    public function getContainer()
+    {
+        return Mage::getSingleton('googletagmanager/container');
+    }
+
+    /**
+     * Determine whether this GA configuration has any attributes
+     *
      * @return bool
      */
     public function hasAttributes()
@@ -58,6 +91,8 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     }
 
     /**
+     * Return all attributes as JSON
+     *
      * @return string
      */
     public function getAttributesAsJson()
@@ -67,6 +102,8 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     }
 
     /**
+     * Add a new attribute to the GA container
+     *
      * @param $name
      * @param $value
      *
@@ -74,14 +111,16 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function addAttribute($name, $value)
     {
-        return Mage::getSingleton('googletagmanager/container')->setData($name, $value);
+        return $this->getContainer()->setData($name, $value);
     }
 
     /**
+     * Get the configured attributes for a GA container
+     *
      * @return mixed
      */
     public function getAttributes()
     {
-        return Mage::getSingleton('googletagmanager/container')->getData();
+        return $this->getContainer()->getData();
     }
 }

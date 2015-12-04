@@ -8,12 +8,27 @@
  * @license     Open Source License (OSL v3)
  */
 
+/**
+ * Class Yireo_GoogleTagManager_Block_Quote
+ */
 class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_Default
 {
-    public function getItemsAsJson()
-    {   
+    /**
+     * Return all quote items as array
+     *
+     * @return string
+     */
+    public function getItemsAsArray()
+    {
+        /** @var Mage_Sales_Model_Quote $quote */
+        $quote = $this->getQuote();
+        if (empty($quote)) {
+            return array();
+        }
+
         $data = array();
-        foreach($this->getQuote()->getAllItems() as $item) {
+        foreach($quote->getAllItems() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
             $data[] = array(
                 'sku' => $item->getProduct()->getSku(),
                 'name' => $item->getProduct()->getName(),
@@ -21,6 +36,17 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
                 'quantity' => $item->getQty(),
             );
         }
-        return json_encode($data);
+
+        return $data;
+    }
+
+    /**
+     * Return all quote items as JSON
+     *
+     * @return string
+     */
+    public function getItemsAsJson()
+    {   
+        return json_encode($this->getItemsAsArray());
     }
 }
