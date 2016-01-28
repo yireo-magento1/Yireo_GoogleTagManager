@@ -123,4 +123,26 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     {
         return $this->getContainer()->getData();
     }
+
+    /**
+     * Return a product collection
+     *
+     * @return bool|object
+     */
+    public function getProductCollection()
+    {
+        return false;
+    }
+
+    /**
+     * @param $data
+     *
+     * @return string
+     */
+    public function jsonEncode($data)
+    {
+        $string = json_encode($data);
+        $string = str_replace('"', "'", $string);
+        return $string;
+    }
 }

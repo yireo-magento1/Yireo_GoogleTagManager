@@ -1,0 +1,33 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+
+/**
+ * To use this code, add the following line to your PHTML templates:
+ * <?php $gtm = Mage::helper('googletagmanager'); ?>
+ * <?php echo $gtm->onClickProduct($_product); ?>
+ */
+
+/** @var Mage_Catalog_Model_Product $product */
+$product = $this->getProduct();
+$data = array(
+    'event' => 'productClick',
+    'ecommerce' => array(
+        'click' => array(
+            'products' => array(
+                array(
+                    'name' => $product->getName(),
+                    'id' => $product->getId(),
+                )
+            )
+        )
+    ),
+);
+?>
+dataLayer.push(<?php echo $this->jsonEncode($data); ?>);

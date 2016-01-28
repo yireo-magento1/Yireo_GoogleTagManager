@@ -1,38 +1,51 @@
 <?php
 /**
- * GoogleTagManager plugin for Magento 
+ * GoogleTagManager plugin for Magento
  *
  * @package     Yireo_GoogleTagManager
- * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright (c) 2015 Yireo (http://www.yireo.com/)
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
  * @license     Open Software License
  */
 
-$loadProducts = (int) Mage::helper('googletagmanager')->getConfigValue('category_products');
+$loadProducts = (int)Mage::helper('googletagmanager')->getConfigValue('category_products');
 if ($loadProducts > 0) {
-    $productCollection = $this->getLoadedProductCollection();
+    $productCollection = $this->getProductCollection();
 }
-?>
-<?php if($this->isEnabled()) : ?>
-    <?php $category = $this->getCategory(); ?>
-    <?php if(!empty($category) && $category->getId() > 0) : ?>
-        <?php $this->addAttribute('categoryId', $category->getId()); ?>
-        <?php $this->addAttribute('categoryName', $category->getName()); ?>
-    <?php endif; ?>
-    <?php if(!empty($productCollection)) : ?>
-        <?php $this->addAttribute('categorySize', $productCollection->getSize()); ?>
-        <?php $categoryProducts = array(); ?>
-        <?php $i = 0; ?>
-        <?php foreach($productCollection as $product) : ?>
-            <?php if ($i > $loadProducts) break; ?>
-            <?php $categoryProduct = array(); ?>
-            <?php $categoryProduct['id'] = $product->getId(); ?>
-            <?php $categoryProduct['name'] = $product->getName(); ?>
-            <?php $categoryProduct['sku'] = $product->getSku(); ?>
-            <?php $categoryProduct['price'] = $product->getPrice(); ?>
-            <?php $categoryProducts[] = $categoryProduct; ?>
-            <?php $i++ ; ?>
-        <?php endforeach; ?>
-        <?php $this->addAttribute('categoryProducts', $categoryProducts); ?>
-    <?php endif; ?>
-<?php endif; ?>
+
+if ($this->isEnabled()) {
+    $category = $this->getCategory();
+    if (!empty($category) && $category->getId() > 0) {
+        $this->addAttribute('categoryId', $category->getId());
+        $this->addAttribute('categoryName', $category->getName());
+    }
+
+    if (!empty($productCollection)) {
+        $this->addAttribute('categorySize', $productCollection->getSize());
+        $categoryProducts = array();
+
+        $i = 0;
+        foreach ($productCollection as $product) {
+
+            if ($i > $loadProducts) {
+                break;
+            }
+
+            $categoryProduct = array();
+            $categoryProduct['id'] = $product->getId();
+            $categoryProduct['name'] = $product->getName();
+            $categoryProduct['sku'] = $product->getSku();
+            $categoryProduct['price'] = $product->getPrice();
+            if (!empty($category) && $category->getId() > 0) {
+                $categoryProduct['category'] = $category->getName();
+            }
+            $categoryProduct['position'] = $i;
+
+            $categoryProducts[] = $categoryProduct;
+            $i++;
+        }
+
+        $this->addAttribute('categoryProducts', $categoryProducts);
+        $this->getHelper()->addEcommerceData('impressions', $categoryProducts);
+    }
+}

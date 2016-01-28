@@ -16,7 +16,7 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     /**
      * @return Mage_Eav_Model_Entity_Collection_Abstract|null
      */
-    public function getLoadedProductCollection()
+    public function getProductCollection()
     {
         /** @var Mage_Catalog_Block_Product_List $productListBlock */
         $productListBlock = Mage::app()->getLayout()->getBlock('product_list');

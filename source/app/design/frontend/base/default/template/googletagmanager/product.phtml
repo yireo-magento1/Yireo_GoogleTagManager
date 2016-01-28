@@ -1,19 +1,34 @@
 <?php
 /**
- * GoogleTagManager plugin for Magento 
+ * GoogleTagManager plugin for Magento
  *
  * @package     Yireo_GoogleTagManager
- * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
  * @license     Open Software License
  */
-?>
-<?php if($this->isEnabled()) : ?>
-<?php $product = $this->getProduct(); ?>
-<?php if(!empty($product) && $product->getId() > 0) : ?>
-    <?php $this->addAttribute('productId', $product->getId()); ?>
-    <?php $this->addAttribute('productName', $product->getName()); ?>
-    <?php $this->addAttribute('productSku', $product->getSku()); ?>
-    <?php $this->addAttribute('productPrice', $product->getPrice()); ?>
-<?php endif; ?>
-<?php endif; ?>
+
+if ($this->isEnabled()) {
+
+    /** @var Mage_Catalog_Model_Product $product */
+    $product = $this->getProduct();
+
+    if (!empty($product) && $product->getId() > 0) {
+        $this->addAttribute('productId', $product->getId());
+        $this->addAttribute('productName', $product->getName());
+        $this->addAttribute('productSku', $product->getSku());
+        $this->addAttribute('productPrice', $product->getPrice());
+
+        $categoryName = $product->getCategory()->getName();
+        $this->getHelper()->addEcommerceData('actionField', array('list' => $categoryName));
+
+        $productData = array(
+            'name' => $product->getName(),
+            'id' => $product->getId(),
+            'price' => $product->getPrice(),
+            'brand' => $product->getManufacturer(),
+            'category' => $categoryName,
+        );
+        $this->getHelper()->addEcommerceData('detail', array($productData));
+    }
+}
