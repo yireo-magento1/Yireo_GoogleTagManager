@@ -20,7 +20,7 @@ if ($this->isEnabled()) {
         $this->addAttribute('productPrice', $product->getPrice());
 
         $categoryName = $product->getCategory()->getName();
-        $this->getHelper()->addEcommerceData('actionField', array('list' => $categoryName));
+        $this->getModuleHelper()->addEcommerceData('actionField', array('list' => $categoryName));
 
         $productData = array(
             'name' => $product->getName(),
@@ -29,6 +29,6 @@ if ($this->isEnabled()) {
             'brand' => $product->getManufacturer(),
             'category' => $categoryName,
         );
-        $this->getHelper()->addEcommerceData('detail', array($productData));
+        $this->getModuleHelper()->addEcommerceData('detail', array($productData));
     }
 }

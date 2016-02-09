@@ -46,6 +46,6 @@ if ($this->isEnabled()) {
         }
 
         $this->addAttribute('categoryProducts', $categoryProducts);
-        $this->getHelper()->addEcommerceData('impressions', $categoryProducts);
+        $this->getModuleHelper()->addEcommerceData('impressions', $categoryProducts);
     }
 }

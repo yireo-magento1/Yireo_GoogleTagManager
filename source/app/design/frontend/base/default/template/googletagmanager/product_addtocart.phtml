@@ -19,7 +19,7 @@ $product = $this->getProduct();
 $data = array(
     'event' => 'addToCart',
     'ecommerce' => array(
-        'currencyCode' => $this->getHelper()->getCurrencyCode(),
+        'currencyCode' => $this->getModuleHelper()->getCurrencyCode(),
         'click' => array(
             'products' => array(
                 array(
