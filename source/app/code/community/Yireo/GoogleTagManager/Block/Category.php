@@ -33,6 +33,14 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     }
 
     /**
+     * @param Mage_Catalog_Model_Category $category
+     */
+    public function setCategory(Mage_Catalog_Model_Category $category)
+    {
+        $this->category = $category;
+    }
+
+    /**
      * Return the current page limit, as set by the toolbar block
      *
      * @return int
