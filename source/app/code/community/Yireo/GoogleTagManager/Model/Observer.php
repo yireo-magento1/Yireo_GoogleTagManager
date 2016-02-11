@@ -18,11 +18,11 @@ class Yireo_GoogleTagManager_Model_Observer
      */
     public function coreBlockAbstractToHtmlAfter($observer)
     {
-        if ($this->getHelper()->isEnabled() == false) {
+        if ($this->getModuleHelper()->isEnabled() == false) {
             return $this;
         }
 
-        if ($this->getHelper()->isMethodObserver() == false) {
+        if ($this->getModuleHelper()->isMethodObserver() == false) {
             return $this;
         }
 
@@ -35,12 +35,12 @@ class Yireo_GoogleTagManager_Model_Observer
             $script = Mage::helper('googletagmanager')->getHeaderScript();
 
             if (empty($script)) {
-                $this->getHelper()->debug('Observer: Empty script');
+                $this->getModuleHelper()->debug('Observer: Empty script');
                 return $this;
             }
 
             $html = preg_replace('/\<body([^\>]+)\>/', '\0'.$script, $html);
-            $this->getHelper()->debug('Observer: Replacing header');
+            $this->getModuleHelper()->debug('Observer: Replacing header');
 
             $transport->setHtml($html);
         }
@@ -53,7 +53,7 @@ class Yireo_GoogleTagManager_Model_Observer
      *
      * @return Yireo_GoogleTagManager_Helper_Data
      */
-    protected function getHelper()
+    protected function getModuleHelper()
     {
         return Mage::helper('googletagmanager');
     }

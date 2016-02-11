@@ -20,7 +20,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function isEnabled()
     {
-        return $this->getHelper()->isEnabled();
+        return $this->getModuleHelper()->isEnabled();
     }
 
     /**
@@ -30,7 +30,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function isDebug()
     {
-        return $this->getHelper()->isDebug();
+        return $this->getModuleHelper()->isDebug();
     }
 
     /**
@@ -40,7 +40,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function getId()
     {
-        return $this->getHelper()->getId();
+        return $this->getModuleHelper()->getId();
     }
 
     /**
@@ -53,7 +53,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function getConfig($key = null, $default_value = null)
     {
-        return $this->getHelper()->getConfigValue($key, $default_value);
+        return $this->getModuleHelper()->getConfigValue($key, $default_value);
     }
 
     /**
@@ -61,7 +61,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      *
      * @return Yireo_GoogleTagManager_Helper_Data
      */
-    public function getHelper()
+    public function getModuleHelper()
     {
         return Mage::helper('googletagmanager');
     }
