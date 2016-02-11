@@ -20,7 +20,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function isEnabled()
     {
-        return $this->getModuleHelper()->isEnabled();
+        return $this->getHelper()->isEnabled();
     }
 
     /**
@@ -30,7 +30,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function isDebug()
     {
-        return $this->getModuleHelper()->isDebug();
+        return $this->getHelper()->isDebug();
     }
 
     /**
@@ -40,7 +40,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function getId()
     {
-        return $this->getModuleHelper()->getId();
+        return $this->getHelper()->getId();
     }
 
     /**
@@ -53,7 +53,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function getConfig($key = null, $default_value = null)
     {
-        return $this->getModuleHelper()->getConfigValue($key, $default_value);
+        return $this->getHelper()->getConfigValue($key, $default_value);
     }
 
     /**
@@ -61,7 +61,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      *
      * @return Yireo_GoogleTagManager_Helper_Data
      */
-    public function getModuleHelper()
+    public function getHelper()
     {
         return Mage::helper('googletagmanager');
     }
@@ -144,5 +144,27 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
         $string = json_encode($data);
         $string = str_replace('"', "'", $string);
         return $string;
+    }
+
+    /**
+     * @param $childScript
+     */
+    public function setChildScript($childScript)
+    {
+        $this->childScript = $childScript;
+    }
+
+    /**
+     * @return string
+     */
+    public function _toHtml()
+    {
+        // Bypass a bug that causes an empty HTML block to be skipped
+        $html = parent::_toHtml();
+        if (empty($html)) {
+            $html = ' ';
+        }
+
+        return $html;
     }
 }
