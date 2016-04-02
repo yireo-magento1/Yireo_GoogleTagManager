@@ -9,4 +9,5 @@
  */
 
 $data = $this->getEcommerce();
-$this->addAttribute('ecommerce', $data);
+?>
+dataLayer.push({'ecommerce': <?php echo json_encode($data); ?>});

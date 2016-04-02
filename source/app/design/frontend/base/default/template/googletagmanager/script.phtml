@@ -7,7 +7,5 @@
  * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
  * @license     Open Software License
  */
-?>
-<?php if($this->isEnabled()) : ?>
-    <?= $this->getScript(); ?>
-<?php endif; ?>
+
+if($this->isEnabled()) echo $this->getScript();
