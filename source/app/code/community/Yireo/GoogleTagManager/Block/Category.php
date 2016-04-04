@@ -29,9 +29,9 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
         $collection = $productListBlock->getLoadedProductCollection();
         
         // Set Limit Except for 'all' products
-        if ($this->getLimit() != 'all') :
+        if ($this->getLimit() != 'all') {
             $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
-        endif;
+        }
         
         return $collection;
     }
