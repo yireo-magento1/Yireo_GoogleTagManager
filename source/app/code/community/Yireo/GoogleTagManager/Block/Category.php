@@ -27,8 +27,12 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
 
         // Fetch the current collection from the block and set pagination
         $collection = $productListBlock->getLoadedProductCollection();
-        $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
-
+        
+        // Set Limit Except for 'all' products
+        if ($this->getLimit() != 'all') :
+            $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
+        endif;
+        
         return $collection;
     }
 
