@@ -18,11 +18,11 @@ Next, modify your local composer.json file:
             },
             {
                 "type":"composer",
-                "url":"http://packages.firegento.com"
+                "url":"https://packages.firegento.com"
             },
             {
                 "type":"composer",
-                "url":"http://satis.yireo.com"
+                "url":"https://satis.yireo.com"
             }
         ],
         "extra":{
