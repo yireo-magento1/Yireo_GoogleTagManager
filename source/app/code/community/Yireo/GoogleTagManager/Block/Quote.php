@@ -29,10 +29,13 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         $data = array();
         foreach($quote->getAllItems() as $item) {
             /** @var Mage_Sales_Model_Quote_Item $item */
+
+            $product = $item->getProduct();
+
             $data[] = array(
-                'sku' => $item->getProduct()->getSku(),
-                'name' => $item->getProduct()->getName(),
-                'price' => $item->getProduct()->getPrice(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
+                'price' => Mage::helper('tax')->getPrice($product, $product->getFinalPrice()),
                 'quantity' => $item->getQty(),
             );
         }
