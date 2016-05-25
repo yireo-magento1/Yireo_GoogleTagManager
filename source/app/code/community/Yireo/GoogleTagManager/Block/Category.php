@@ -32,7 +32,13 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
         if ($this->getLimit() != 'all') {
             $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
         }
-        
+
+        // Set default order/direction, failing to do so will prevent proper default order/direction on category views
+        // ($this->_isOrdersRendered already set in resource collection but no sorting applied)
+        if ($productListBlock->getSortBy()) {
+            $collection->setOrder($productListBlock->getSortBy(), $productListBlock->getDefaultDirection());
+        }
+
         return $collection;
     }
 
