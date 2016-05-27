@@ -261,18 +261,13 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getSearchScript()
     {
-        $listBlock = Mage::app()->getLayout()->getBlock('search_result_list');
-        if (!$listBlock) {
-            return '';
-        }
-
-        $productCollection = $listBlock->getLoadedProductCollection();
-        if (empty($productCollection) || $productCollection->count() < 1) {
-            return '';
-        }
-
         $searchBlock = $this->fetchBlock('search', 'search', 'search.phtml');
         if (!$searchBlock) {
+            return '';
+        }
+
+        $productCollection = $searchBlock->getProductCollection();
+        if (empty($productCollection) || $productCollection->count() < 1) {
             return '';
         }
 
