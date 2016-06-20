@@ -33,13 +33,37 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
             $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
         }
 
-        // Set default order/direction, failing to do so will prevent proper default order/direction on category views
-        // ($this->_isOrdersRendered already set in resource collection but no sorting applied)
-        if ($productListBlock->getSortBy()) {
-            $collection->setOrder($productListBlock->getSortBy(), $productListBlock->getDefaultDirection());
-        }
+        $this->applySorting($collection);
 
         return $collection;
+    }
+
+    /**
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     */
+    public function applySorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection)
+    {
+        $modelConfig = Mage::getModel('catalog/config');
+        $request     = Mage::app()->getRequest();
+
+        // Hebben we geen `order` in onze request, dan nemen we de standaard sortering.
+        if (!$order = strtolower(trim($request->getParam('order')))) {
+            $order = $modelConfig->getProductListDefaultSortBy();
+        }
+
+        if ($order) {
+            $dir         = strtolower(trim($request->getParam('dir', 'asc')));
+            $sortingData = $modelConfig->getAttributesUsedForSortBy();
+
+            if (isset($sortingData[$order]['attribute_code']) and $attributeCode = $sortingData[$order]['attribute_code']) {
+                $collection->setOrder(
+                  $attributeCode,
+                  $dir == 'asc'
+                    ? Varien_Data_Collection_Db::SORT_ORDER_ASC
+                    : Varien_Data_Collection_Db::SORT_ORDER_DESC
+                );
+            }
+        }
     }
 
     /**
