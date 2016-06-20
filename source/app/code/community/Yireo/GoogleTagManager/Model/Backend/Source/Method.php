@@ -14,6 +14,19 @@
 class Yireo_GoogleTagManager_Model_Backend_Source_Method
 {
     /**
+     * @var Yireo_GoogleTagManager_Helper_Data
+     */
+    protected $helper;
+
+    /**
+     * Yireo_GoogleTagManager_Model_Observer constructor.
+     */
+    public function __construct()
+    {
+        $this->helper = Mage::helper('googletagmanager');
+    }
+    
+    /**
      * Options getter
      *
      * @return array
@@ -21,8 +34,8 @@ class Yireo_GoogleTagManager_Model_Backend_Source_Method
     public function toOptionArray()
     {
         return array(
-            array('value' => '0', 'label'=> Mage::helper('googletagmanager')->__('Observer')),
-            array('value' => '1', 'label'=> Mage::helper('googletagmanager')->__('XML Layout')),
+            array('value' => '0', 'label'=> $this->helper->__('Observer')),
+            array('value' => '1', 'label'=> $this->helper->__('XML Layout')),
         );
     }
 

@@ -14,6 +14,21 @@
 class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_Default
 {
     /**
+     * @var $taxHelper Mage_Tax_Helper_Data
+     */
+    protected $taxHelper;
+    
+    /**
+     * Constructor
+     */
+    protected function _construct()
+    {
+        $this->taxHelper = Mage::helper('tax');
+
+        parent::_construct();
+    }
+    
+    /**
      * Return all quote items as array
      *
      * @return string
@@ -35,7 +50,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
             $data[] = array(
                 'sku' => $product->getSku(),
                 'name' => $product->getName(),
-                'price' => Mage::helper('tax')->getPrice($product, $product->getFinalPrice()),
+                'price' => $this->taxHelper->getPrice($product, $product->getFinalPrice()),
                 'quantity' => $item->getQty(),
             );
         }

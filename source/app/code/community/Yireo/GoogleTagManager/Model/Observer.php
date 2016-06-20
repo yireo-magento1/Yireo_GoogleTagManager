@@ -11,6 +11,19 @@
 class Yireo_GoogleTagManager_Model_Observer
 {
     /**
+     * @var Yireo_GoogleTagManager_Helper_Data
+     */
+    protected $helper;
+    
+    /**
+     * Yireo_GoogleTagManager_Model_Observer constructor.
+     */
+    public function __construct()
+    {
+        $this->helper = Mage::helper('googletagmanager');
+    }
+    
+    /**
      * Listen to the event core_block_abstract_to_html_after
      *
      * @parameter Varien_Event_Observer $observer
@@ -18,11 +31,11 @@ class Yireo_GoogleTagManager_Model_Observer
      */
     public function coreBlockAbstractToHtmlAfter($observer)
     {
-        if ($this->getModuleHelper()->isEnabled() == false) {
+        if ($this->helper->isEnabled() == false) {
             return $this;
         }
 
-        if ($this->getModuleHelper()->isMethodObserver() == false) {
+        if ($this->helper->isMethodObserver() == false) {
             return $this;
         }
 
@@ -32,29 +45,19 @@ class Yireo_GoogleTagManager_Model_Observer
             $transport = $observer->getEvent()->getTransport();
             $html = $transport->getHtml();
 
-            $script = Mage::helper('googletagmanager')->getHeaderScript();
+            $script = $this->helper->getHeaderScript();
 
             if (empty($script)) {
-                $this->getModuleHelper()->debug('Observer: Empty script');
+                $this->helper->debug('Observer: Empty script');
                 return $this;
             }
 
             $html = preg_replace('/\<body([^\>]+)\>/', '\0'.$script, $html);
-            $this->getModuleHelper()->debug('Observer: Replacing header');
+            $this->helper->debug('Observer: Replacing header');
 
             $transport->setHtml($html);
         }
 
         return $this;
-    }
-
-    /**
-     * Return the helper class
-     *
-     * @return Yireo_GoogleTagManager_Helper_Data
-     */
-    protected function getModuleHelper()
-    {
-        return Mage::helper('googletagmanager');
     }
 }

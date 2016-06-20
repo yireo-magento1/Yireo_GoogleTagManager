@@ -19,7 +19,7 @@ class Yireo_GoogleTagManager_Block_Search extends Yireo_GoogleTagManager_Block_C
     public function getProductCollection()
     {
         /** @var Mage_Catalog_Block_Product_List $searchListBlock */
-        $searchListBlock = Mage::app()->getLayout()->getBlock('search_result_list');
+        $searchListBlock = $this->layout->getBlock('search_result_list');
 
         if (empty($searchListBlock)) {
             return null;

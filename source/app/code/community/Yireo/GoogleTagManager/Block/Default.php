@@ -14,6 +14,40 @@
 class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
 {
     /**
+     * @var $moduleHelper Yireo_GoogleTagManager_Helper_Data
+     */
+    protected $moduleHelper;
+
+    /**
+     * @var $container Yireo_GoogleTagManager_Model_Container
+     */
+    protected $container;
+
+    /**
+     * @var $layout Mage_Core_Model_Layout
+     */
+    protected $layout;
+
+    /**
+     * @var $request Mage_Core_Controller_Request_Http
+     */
+    protected $request;
+    
+    /**
+     * Constructor
+     */
+    protected function _construct()
+    {
+        $this->moduleHelper = Mage::helper('googletagmanager');
+        $this->container = Mage::getSingleton('googletagmanager/container');
+        $this->layout = Mage::app()->getLayout();
+        $this->catalogConfig = Mage::getModel('catalog/config');
+        $this->request     = Mage::app()->getRequest();
+        
+        parent::_construct();
+    }
+    
+    /**
      * Return whether this module is enabled or not
      *
      * @return bool
@@ -63,7 +97,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function getModuleHelper()
     {
-        return Mage::helper('googletagmanager');
+        return $this->moduleHelper;
     }
 
     /**
@@ -73,7 +107,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function getContainer()
     {
-        return Mage::getSingleton('googletagmanager/container');
+        return $this->container;
     }
 
     /**
