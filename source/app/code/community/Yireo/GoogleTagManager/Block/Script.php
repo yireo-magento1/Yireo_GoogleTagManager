@@ -20,6 +20,6 @@ class Yireo_GoogleTagManager_Block_Script extends Yireo_GoogleTagManager_Block_D
      */
     public function getScript()
     {
-        return $this->helper->getHeaderScript();
+        return $this->moduleHelper->getHeaderScript();
     }
 }
