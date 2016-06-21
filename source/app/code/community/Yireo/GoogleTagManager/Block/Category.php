@@ -1,6 +1,6 @@
 <?php
 /**
- * GoogleTagManager plugin for Magento 
+ * GoogleTagManager plugin for Magento
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (https://www.yireo.com/)
@@ -42,7 +42,7 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
 
         // Fetch the current collection from the block and set pagination
         $collection = $productListBlock->getLoadedProductCollection();
-        
+
         // Set Limit Except for 'all' products
         if ($this->getLimit() != 'all') {
             $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
@@ -58,24 +58,69 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
      */
     public function applySorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection)
     {
-        // Hebben we geen `order` in onze request, dan nemen we de standaard sortering.
-        if (!$order = strtolower(trim($this->request->getParam('order')))) {
-            $order = $this->catalogConfig->getProductListDefaultSortBy();
-        }
+        $order = $this->getCurrentOrder();
+        $dir = $this->getCurrentPosition();
 
         if ($order) {
-            $dir         = strtolower(trim($this->request->getParam('dir', 'asc')));
             $sortingData = $this->catalogConfig->getAttributesUsedForSortBy();
 
             if (isset($sortingData[$order]['attribute_code']) and $attributeCode = $sortingData[$order]['attribute_code']) {
                 $collection->setOrder(
-                  $attributeCode,
-                  $dir == 'asc'
-                    ? Varien_Data_Collection_Db::SORT_ORDER_ASC
-                    : Varien_Data_Collection_Db::SORT_ORDER_DESC
+                    $attributeCode,
+                    $dir == 'asc'
+                        ? Varien_Data_Collection_Db::SORT_ORDER_ASC
+                        : Varien_Data_Collection_Db::SORT_ORDER_DESC
                 );
             }
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentOrder()
+    {
+        $order = strtolower(trim($this->request->getParam('order')));
+
+        if (!empty($order))
+        {
+            return $order;
+        }
+
+        $order = strtolower(trim(Mage::getSingleton('catalog/session')->getSortOrder()));
+
+        if (!empty($order))
+        {
+            return $order;
+        }
+
+        $order = $this->catalogConfig->getProductListDefaultSortBy();
+
+        return $order;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentPosition()
+    {
+        $position = strtolower(trim($this->request->getParam('dir')));
+
+        if (!empty($position))
+        {
+            return $position;
+        }
+
+        $position = strtolower(trim(Mage::getSingleton('catalog/session')->getSortDirection()));
+
+        if (!empty($position))
+        {
+            return $position;
+        }
+
+        $position = 'asc';
+
+        return $position;
     }
 
     /**
@@ -110,7 +155,7 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
      */
     protected function getCurrentPage()
     {
-        if ($page = (int) $this->getRequest()->getParam('p')) {
+        if ($page = (int)$this->getRequest()->getParam('p')) {
             return $page;
         }
 
