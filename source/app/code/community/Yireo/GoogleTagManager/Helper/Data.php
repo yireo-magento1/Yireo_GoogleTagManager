@@ -181,6 +181,9 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
 
         // Add search-information
         $childScript .= $this->getSearchScript();
+        
+        // Add tagged products
+        $childScript .= $this->getTagScript();
 
         // Add order-information
         $lastOrderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
@@ -273,6 +276,26 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
 
         $searchBlock->setProducts($productCollection);
         $html = $searchBlock->toHtml();
+        return $html;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTagScript()
+    {
+        $tagBlock = $this->fetchBlock('tag', 'tag', 'tag.phtml');
+        if (!$tagBlock) {
+            return '';
+        }
+
+        $productCollection = $tagBlock->getProductCollection();
+        if (empty($productCollection) || $productCollection->count() < 1) {
+            return '';
+        }
+
+        $tagBlock->setProducts($productCollection);
+        $html = $tagBlock->toHtml();
         return $html;
     }
 

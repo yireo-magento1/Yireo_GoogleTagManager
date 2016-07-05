@@ -1,0 +1,41 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+$loadProducts = (int)Mage::helper('googletagmanager')->getConfigValue('category_products');
+if ($loadProducts > 0) {
+    $products = $this->getProducts();
+}
+
+if ($this->isEnabled()) {
+    if (!empty($products)) {
+        $this->addAttribute('categorySize', $products->getSize());
+        $categoryProducts = array();
+
+        $i = 0;
+        foreach ($products as $product) {
+
+            if ($i > $loadProducts) {
+                break;
+            }
+
+            $categoryProduct = array();
+            $categoryProduct['id'] = $product->getId();
+            $categoryProduct['name'] = $product->getName();
+            $categoryProduct['sku'] = $product->getSku();
+            $categoryProduct['price'] = $product->getPrice();
+            $categoryProduct['position'] = $i;
+
+            $categoryProducts[] = $categoryProduct;
+            $i++;
+        }
+
+        $this->addAttribute('categoryProducts', $categoryProducts);
+        $this->getModuleHelper()->addEcommerceData('impressions', $categoryProducts);
+    }
+}

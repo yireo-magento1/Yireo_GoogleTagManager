@@ -17,6 +17,7 @@
         <block type="googletagmanager/product" name="googletagmanager_product" template="googletagmanager/product.phtml" />
         <block type="googletagmanager/category" name="googletagmanager_category" template="googletagmanager/category.phtml" />
         <block type="googletagmanager/search" name="googletagmanager_search" template="googletagmanager/search.phtml" />
+        <block type="googletagmanager/tag" name="googletagmanager_tag" template="googletagmanager/tag.phtml" />
         <block type="googletagmanager/ecommerce" name="googletagmanager_ecommerce" template="googletagmanager/ecommerce.phtml" />
         <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/custom.phtml" />
         <block type="googletagmanager/default" name="googletagmanager" template="googletagmanager/default.phtml" />

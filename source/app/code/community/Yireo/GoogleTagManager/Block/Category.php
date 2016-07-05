@@ -60,7 +60,7 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     {
         $order = $this->getCurrentOrder();
         $dir = $this->getCurrentPosition();
-
+        
         if ($order) {
             $sortingData = $this->catalogConfig->getAttributesUsedForSortBy();
 
