@@ -175,7 +175,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function jsonEncode($data)
     {
-        $string = json_encode($data);
+        $string = json_encode($data, JSON_HEX_APOS);
         $string = str_replace('"', "'", $string);
         return $string;
     }
