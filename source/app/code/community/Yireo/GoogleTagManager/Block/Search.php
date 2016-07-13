@@ -33,7 +33,11 @@ class Yireo_GoogleTagManager_Block_Search extends Yireo_GoogleTagManager_Block_C
             $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
         }
 
-        $this->applySorting($collection);
+        if ($this->moduleHelper->getConfigValue('category_sorting') == 'block' && $searchListBlock->getSortBy()) {
+            $collection->setOrder($searchListBlock->getSortBy(), $searchListBlock->getDefaultDirection());
+        } else {
+            $this->applySorting($collection);
+        }
 
         return $collection;
     }

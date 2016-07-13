@@ -48,7 +48,11 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
             $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
         }
 
-        $this->applySorting($collection);
+        if ($this->moduleHelper->getConfigValue('category_sorting') == 'block' && $productListBlock->getSortBy()) {
+            $collection->setOrder($productListBlock->getSortBy(), $productListBlock->getDefaultDirection());
+        } else {
+            $this->applySorting($collection);
+        }
 
         return $collection;
     }
