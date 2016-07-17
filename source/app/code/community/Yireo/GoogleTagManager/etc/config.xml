@@ -84,6 +84,7 @@
                 <active>1</active>
                 <method>1</method>
                 <category_products>3</category_products>
+                <category_sorting>url</category_sorting>
             </settings>
         </googletagmanager>
     </default>
