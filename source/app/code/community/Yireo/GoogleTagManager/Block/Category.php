@@ -48,10 +48,10 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
             $collection->setCurPage($this->getCurrentPage())->setPageSize($this->getLimit());
         }
 
-        if ($this->moduleHelper->getConfigValue('category_sorting') == 'block' && $productListBlock->getSortBy()) {
-            $collection->setOrder($productListBlock->getSortBy(), $productListBlock->getDefaultDirection());
+        if ($this->moduleHelper->getConfigValue('category_sorting') == 'block') {
+            $this->applyBlockSorting($collection, $productListBlock);
         } else {
-            $this->applySorting($collection);
+            $this->applyUrlSorting($collection);
         }
 
         return $collection;
@@ -59,12 +59,28 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
 
     /**
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param Mage_Catalog_Block_Product_List $block
      */
-    public function applySorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection)
+    public function applyBlockSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection, Mage_Catalog_Block_Product_List $block)
+    {
+        $toolbar = $block->getToolbarBlock();
+        $order = $toolbar->getCurrentOrder();
+        $dir = $toolbar->getCurrentDirection();
+
+        $collection->setOrder($order, $dir);
+        $block->toHtml();
+        //echo 'console.log("Block sorting: '.$order.' / '.$dir.'");';
+    }
+
+    /**
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     */
+    public function applyUrlSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection)
     {
         $order = $this->getCurrentOrder();
         $dir = $this->getCurrentPosition();
-        
+        //echo 'console.log("Block sorting: '.$order.' / '.$dir.'");';
+
         if ($order) {
             $sortingData = $this->catalogConfig->getAttributesUsedForSortBy();
 
