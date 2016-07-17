@@ -61,14 +61,24 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param Mage_Catalog_Block_Product_List $block
      */
-    public function applyBlockSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection, Mage_Catalog_Block_Product_List $block)
+    public function applyBlockSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection, Mage_Catalog_Block_Product_List $productListBlock)
     {
-        $toolbar = $block->getToolbarBlock();
-        $order = $toolbar->getCurrentOrder();
-        $dir = $toolbar->getCurrentDirection();
+        $toolbar = $productListBlock->getToolbarBlock();
+        if ($orders = $productListBlock->getAvailableOrders()) {
+            $toolbar->setAvailableOrders($orders);
+        }
+        if ($sort = $productListBlock->getSortBy()) {
+            $toolbar->setDefaultOrder($sort);
+        }
+        if ($dir = $productListBlock->getDefaultDirection()) {
+            $toolbar->setDefaultDirection($dir);
+        }
+        if ($modes = $productListBlock->getModes()) {
+            $toolbar->setModes($modes);
+        }
+        $collection->setOrder($toolbar->getCurrentOrder(), $toolbar->getCurrentDirection());
 
-        $collection->setOrder($order, $dir);
-        $block->toHtml();
+        //$productListBlock->toHtml();
         //echo 'console.log("Block sorting: '.$order.' / '.$dir.'");';
     }
 
@@ -78,7 +88,7 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     public function applyUrlSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection)
     {
         $order = $this->getCurrentOrder();
-        $dir = $this->getCurrentPosition();
+        $dir = $this->getCurrentDirection();
         //echo 'console.log("Block sorting: '.$order.' / '.$dir.'");';
 
         if ($order) {
@@ -122,25 +132,25 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     /**
      * @return string
      */
-    public function getCurrentPosition()
+    public function getCurrentDirection()
     {
-        $position = strtolower(trim($this->request->getParam('dir')));
+        $direction = strtolower(trim($this->request->getParam('dir')));
 
-        if (!empty($position))
+        if (!empty($direction))
         {
-            return $position;
+            return $direction;
         }
 
-        $position = strtolower(trim(Mage::getSingleton('catalog/session')->getSortDirection()));
+        $direction = strtolower(trim(Mage::getSingleton('catalog/session')->getSortDirection()));
 
-        if (!empty($position))
+        if (!empty($direction))
         {
-            return $position;
+            return $direction;
         }
 
-        $position = 'asc';
+        $direction = 'asc';
 
-        return $position;
+        return $direction;
     }
 
     /**
