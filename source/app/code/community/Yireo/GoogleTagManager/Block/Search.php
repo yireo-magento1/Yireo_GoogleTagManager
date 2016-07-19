@@ -36,7 +36,7 @@ class Yireo_GoogleTagManager_Block_Search extends Yireo_GoogleTagManager_Block_C
         if ($this->moduleHelper->getConfigValue('category_sorting') == 'block' && $searchListBlock->getSortBy()) {
             $collection->setOrder($searchListBlock->getSortBy(), $searchListBlock->getDefaultDirection());
         } else {
-            $this->applySorting($collection);
+            $this->applyUrlSorting($collection);
         }
 
         return $collection;
