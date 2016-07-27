@@ -59,16 +59,16 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
 
     /**
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param Mage_Catalog_Block_Product_List $block
+     * @param Mage_Catalog_Block_Product_List $productListBlock
      */
-    public function applyBlockSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection, Mage_Catalog_Block_Product_List $block)
+    public function applyBlockSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection, Mage_Catalog_Block_Product_List $productListBlock)
     {
-        $toolbar = $block->getToolbarBlock();
+        $toolbar = $productListBlock->getToolbarBlock();
         $order = $toolbar->getCurrentOrder();
         $dir = $toolbar->getCurrentDirection();
 
         $collection->setOrder($order, $dir);
-        $block->toHtml();
+        $productListBlock->toHtml();
         //echo 'console.log("Block sorting: '.$order.' / '.$dir.'");';
     }
 
