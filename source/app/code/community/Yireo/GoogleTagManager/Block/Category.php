@@ -64,12 +64,26 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     public function applyBlockSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection, Mage_Catalog_Block_Product_List $productListBlock)
     {
         $toolbar = $productListBlock->getToolbarBlock();
+
+        if ($orders = $productListBlock->getAvailableOrders()) {
+            $toolbar->setAvailableOrders($orders);
+        }
+
+        if ($sort = $productListBlock->getSortBy()) {
+            $toolbar->setDefaultOrder($sort);
+        }
+
+        if ($dir = $productListBlock->getDefaultDirection()) {
+            $toolbar->setDefaultDirection($dir);
+        }
+
+        if ($modes = $productListBlock->getModes()) {
+            $toolbar->setModes($modes);
+        }
+
         $order = $toolbar->getCurrentOrder();
         $dir = $toolbar->getCurrentDirection();
-
         $collection->setOrder($order, $dir);
-        $productListBlock->toHtml();
-        //echo 'console.log("Block sorting: '.$order.' / '.$dir.'");';
     }
 
     /**
@@ -78,8 +92,7 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     public function applyUrlSorting(Mage_Eav_Model_Entity_Collection_Abstract &$collection)
     {
         $order = $this->getCurrentOrder();
-        $dir = $this->getCurrentPosition();
-        //echo 'console.log("Block sorting: '.$order.' / '.$dir.'");';
+        $dir = $this->getCurrentDirection();
 
         if ($order) {
             $sortingData = $this->catalogConfig->getAttributesUsedForSortBy();
@@ -122,25 +135,25 @@ class Yireo_GoogleTagManager_Block_Category extends Yireo_GoogleTagManager_Block
     /**
      * @return string
      */
-    public function getCurrentPosition()
+    public function getCurrentDirection()
     {
-        $position = strtolower(trim($this->request->getParam('dir')));
+        $dir = strtolower(trim($this->request->getParam('dir')));
 
-        if (!empty($position))
+        if (!empty($dir))
         {
-            return $position;
+            return $dir;
         }
 
-        $position = strtolower(trim(Mage::getSingleton('catalog/session')->getSortDirection()));
+        $dir = strtolower(trim(Mage::getSingleton('catalog/session')->getSortDirection()));
 
-        if (!empty($position))
+        if (!empty($dir))
         {
-            return $position;
+            return $dir;
         }
 
-        $position = 'asc';
+        $dir = 'asc';
 
-        return $position;
+        return $dir;
     }
 
     /**
