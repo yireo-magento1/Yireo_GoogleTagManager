@@ -22,6 +22,6 @@ if ($this->isEnabled()) {
         $this->addAttribute('transactionPayment', $order->getPayment()->getMethodInstance()->getTitle());
         $this->addAttribute('transactionCurrency', Mage::app()->getStore()->getBaseCurrencyCode());
         $this->addAttribute('transactionPromoCode', $order->getCouponCode());
-        $this->addAttribute('transactionProducts', $this->getItems());
+        $this->addAttribute('transactionProducts', json_decode($this->getItemsAsJson(),true));
     }
 }

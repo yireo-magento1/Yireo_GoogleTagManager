@@ -17,7 +17,8 @@ if ($this->isEnabled()) {
         $this->addAttribute('productId', $product->getId());
         $this->addAttribute('productName', $product->getName());
         $this->addAttribute('productSku', $product->getSku());
-        $this->addAttribute('productPrice', $product->getPrice());
+        $this->addAttribute('productFullPrice', $product->getPrice());
+        $this->addAttribute('productPrice', $product->getFinalPrice());
 
         $category = $product->getCategory();
         $categoryName = (is_object($category)) ? $category->getName() : null;
@@ -29,7 +30,8 @@ if ($this->isEnabled()) {
         $productData = array(
             'name' => $product->getName(),
             'id' => $product->getId(),
-            'price' => $product->getPrice(),
+            'fullPrice' => $product->getPrice(),
+            'price' => $product->getFinalPrice(),
             'brand' => $product->getManufacturer(),
             'category' => $categoryName,
         );

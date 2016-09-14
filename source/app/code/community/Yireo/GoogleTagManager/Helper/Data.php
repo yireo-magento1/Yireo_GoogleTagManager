@@ -157,6 +157,19 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Return order flag
+     *
+     * @return bool
+     */
+    public function getIsOrderSuccessPage()
+    {
+        if (strpos(Mage::app()->getRequest()->getPathInfo(), '/checkout/onepage/success') !== false || strpos(Mage::app()->getRequest()->getPathInfo(), '/checkout/onepage/failure') !== false) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Return this header script
      *
      * @return string
@@ -185,12 +198,11 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
         // Add tagged products
         $childScript .= $this->getTagScript();
 
-        // Add order-information
+        // Add order-information on success page
         $lastOrderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
-        if (!empty($lastOrderId)) {
+        if ($this->getIsOrderSuccessPage() && !empty($lastOrderId)) {
             $childScript .= $this->getOrderScript();
-
-            // Add quote-information
+        // Add quote-information
         } else {
             $childScript .= $this->getQuoteScript();
         }

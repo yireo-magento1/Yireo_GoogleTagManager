@@ -35,7 +35,8 @@ if ($this->isEnabled()) {
             $categoryProduct['id'] = $product->getId();
             $categoryProduct['name'] = $product->getName();
             $categoryProduct['sku'] = $product->getSku();
-            $categoryProduct['price'] = $product->getPrice();
+            $categoryProduct['fullPrice'] = $product->getPrice();
+            $categoryProduct['price'] = $product->getFinalPrice();
             if (!empty($category) && $category->getId() > 0) {
                 $categoryProduct['category'] = $category->getName();
             }
