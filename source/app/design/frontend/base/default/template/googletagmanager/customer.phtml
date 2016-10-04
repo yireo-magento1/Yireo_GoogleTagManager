@@ -9,12 +9,16 @@
  */
 
 if($this->isEnabled()) {
+    /** @var Mage_Customer_Model_Customer $customer */
     $customer = $this->getCustomer();
     $customerGroup = $this->getCustomerGroup();
 
     if (!empty($customer) && $customer->getId() > 0) {
         $this->addAttribute('customerLoggedIn', 1);
         $this->addAttribute('customerId', $customer->getId());
+        $this->addAttribute('customerEmail', $customer->getEmail());
+        $this->addAttribute('customerFirstName', $customer->getFirstname());
+        $this->addAttribute('customerLastName', $customer->getLastname());
     } else {
         $this->addAttribute('customerLoggedIn', 0);
         $this->addAttribute('customerId', 0);
