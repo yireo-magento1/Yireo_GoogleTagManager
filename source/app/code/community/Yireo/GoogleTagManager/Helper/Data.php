@@ -212,13 +212,13 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerScript()
     {
-        $customer = Mage::getSingleton('customer/session');
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
         if (!empty($customer)) {
             $customerBlock = $this->fetchBlock('customer', 'customer', 'customer.phtml');
 
             if ($customerBlock) {
                 $customerBlock->setCustomer($customer);
-                $customerGroup = Mage::getSingleton('customer/group')->load($customer->getCustomerGroupId());
+                $customerGroup = Mage::getSingleton('customer/group')->load($customer->getGroupId());
                 $customerBlock->setCustomerGroup($customerGroup);
                 $html = $customerBlock->toHtml();
                 return $html;
