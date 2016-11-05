@@ -14,7 +14,7 @@
     <tabs>
         <yireo translate="label" module="googletagmanager">
             <label>Yireo</label>
-            <sort_order>900</sort_order>
+            <sort_order>1000</sort_order>
         </yireo>
     </tabs>
     <sections>
@@ -22,7 +22,7 @@
             <label>Google Tag Manager</label>
             <tab>yireo</tab>
             <frontend_type>text</frontend_type>
-            <sort_order>342</sort_order>
+            <sort_order>72</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>

@@ -29,4 +29,10 @@
             </action>
         </reference>
     </default>
+
+    <!--
+    <checkout_onepage_success>
+        <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/order.phtml" />
+    </checkout_onepage_success>
+    -->
 </layout>
