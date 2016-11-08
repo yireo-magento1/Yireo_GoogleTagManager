@@ -17,6 +17,6 @@ if($this->isEnabled()) {
         $this->addAttribute('transactionAffiliation', Mage::app()->getWebsite()->getName()); 
         $this->addAttribute('transactionTotal', (float)$quote->getGrandTotal()); 
         $this->addAttribute('transactionTax', $quote->getGrandTotal() - $quote->getSubtotal()); 
-        $this->addAttribute('transactionProducts', $this->getItemsAsJson()); 
+        $this->addAttribute('transactionProducts', $this->getItemsAsArray());
     } 
 } 
