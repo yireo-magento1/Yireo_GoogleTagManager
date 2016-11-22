@@ -49,6 +49,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
 
             $data[] = array(
                 'sku' => $product->getSku(),
+                'id' => $product->getId(),
                 'name' => $product->getName(),
                 'price' => $this->taxHelper->getPrice($product, $product->getFinalPrice()),
                 'quantity' => $item->getQty(),

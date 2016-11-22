@@ -41,6 +41,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
             $product = $item->getProduct();
             $data[] = array(
                 'sku' => $item->getSku(),
+                'id' => $item->getId(),
                 'name' => $item->getName(),
                 'price' => $item->getPrice(),
                 'category' => implode('|', $product->getCategoryIds()),
