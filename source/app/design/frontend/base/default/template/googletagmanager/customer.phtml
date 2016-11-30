@@ -16,13 +16,13 @@ if($this->isEnabled()) {
     if (!empty($customer) && $customer->getId() > 0) {
         $this->addAttribute('customerLoggedIn', 1);
         $this->addAttribute('customerId', $customer->getId());
-        $this->addAttribute('customerEmail', $customer->getEmail());
-        $this->addAttribute('customerFirstName', $customer->getFirstname());
-        $this->addAttribute('customerLastName', $customer->getLastname());
+        $this->addAttribute('customerEmail', $this->quoteEscape($customer->getEmail()));
+        $this->addAttribute('customerFirstName', $this->quoteEscape($customer->getFirstname()));
+        $this->addAttribute('customerLastName', $this->quoteEscape($customer->getLastname()));
     } else {
         $this->addAttribute('customerLoggedIn', 0);
         $this->addAttribute('customerId', 0);
     }
     $this->addAttribute('customerGroupId', $customerGroup->getId());
-    $this->addAttribute('customerGroupCode', strtoupper($customerGroup->getCustomerGroupCode()));
+    $this->addAttribute('customerGroupCode', strtoupper($this->quoteEscape($customerGroup->getCustomerGroupCode())));
 }

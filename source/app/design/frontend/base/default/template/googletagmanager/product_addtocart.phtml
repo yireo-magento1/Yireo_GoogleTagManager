@@ -23,7 +23,7 @@ $data = array(
         'click' => array(
             'products' => array(
                 array(
-                    'name' => $product->getName(),
+                    'name' => $this->quoteEscape($product->getName()),
                     'id' => $product->getId(),
                     'quantity' => 1,
                 )

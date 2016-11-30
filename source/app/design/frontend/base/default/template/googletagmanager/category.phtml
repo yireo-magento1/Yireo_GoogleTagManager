@@ -17,7 +17,7 @@ if ($this->isEnabled()) {
     $category = $this->getCategory();
     if (!empty($category) && $category->getId() > 0) {
         $this->addAttribute('categoryId', $category->getId());
-        $this->addAttribute('categoryName', $category->getName());
+        $this->addAttribute('categoryName', $this->quoteEscape($category->getName()));
     }
 
     if (!empty($productCollection)) {
@@ -33,12 +33,14 @@ if ($this->isEnabled()) {
 
             $categoryProduct = array();
             $categoryProduct['id'] = $product->getId();
-            $categoryProduct['name'] = $product->getName();
-            $categoryProduct['sku'] = $product->getSku();
+            $categoryProduct['name'] = $this->quoteEscape($product->getName());
+            $categoryProduct['sku'] = $this->quoteEscape($product->getSku());
             $categoryProduct['price'] = $product->getPrice();
+
             if (!empty($category) && $category->getId() > 0) {
-                $categoryProduct['category'] = $category->getName();
+                $categoryProduct['category'] = $this->quoteEscape($category->getName());
             }
+
             $categoryProduct['position'] = $i;
 
             $categoryProducts[] = $categoryProduct;

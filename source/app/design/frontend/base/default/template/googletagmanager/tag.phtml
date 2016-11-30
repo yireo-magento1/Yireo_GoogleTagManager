@@ -26,8 +26,8 @@ if ($this->isEnabled()) {
 
             $categoryProduct = array();
             $categoryProduct['id'] = $product->getId();
-            $categoryProduct['name'] = $product->getName();
-            $categoryProduct['sku'] = $product->getSku();
+            $categoryProduct['name'] = $this->quoteEscape($product->getName());
+            $categoryProduct['sku'] = $this->quoteEscape($product->getSku());
             $categoryProduct['price'] = $product->getPrice();
             $categoryProduct['position'] = $i;
 
