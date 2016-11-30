@@ -40,6 +40,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
             /** @var Mage_Catalog_Model_Product $product */
             $product = $item->getProduct();
             $data[] = array(
+                'id' => $item->getId(),
                 'sku' => $this->quoteEscape($item->getSku()),
                 'name' => $this->quoteEscape($item->getName()),
                 'price' => $item->getPrice(),
