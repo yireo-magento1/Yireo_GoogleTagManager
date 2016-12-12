@@ -9,14 +9,21 @@
  */
 
 if($this->isEnabled()) {
-    $quote = $this->getQuote(); 
+    $quote = $this->getQuote();
+    $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals();
+    if(isset($totals['tax'])) {
+      $tax = $totals['tax']->getValue();
+  	} 
+  	else {
+      $tax = '';
+  	}
     if(!empty($quote) && $quote->getId() > 0) { 
         $this->addAttribute('transactionEntity', 'QUOTE'); 
         $this->addAttribute('transactionId', $quote->getId()); 
         $this->addAttribute('transactionId', $quote->getId()); 
         $this->addAttribute('transactionAffiliation', $this->quoteEscape(Mage::app()->getWebsite()->getName())); 
         $this->addAttribute('transactionTotal', (float)$quote->getGrandTotal()); 
-        $this->addAttribute('transactionTax', $quote->getGrandTotal() - $quote->getSubtotal()); 
+        $this->addAttribute('transactionTax', $tax); 
         $this->addAttribute('transactionProducts', $this->getItemsAsArray());
     } 
 } 
