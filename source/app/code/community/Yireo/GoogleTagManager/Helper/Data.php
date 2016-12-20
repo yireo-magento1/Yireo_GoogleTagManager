@@ -95,13 +95,10 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->isDebug() == false) {
             return false;
         }
-
         if (!empty($variable)) {
             $string .= ': ' . var_export($variable, true);
         }
-
-        Mage::log('Yireo_GoogleTagManager: ' . $string);
-
+        Mage::log($string, NULL, 'googletagmanager.log');
         return true;
     }
 
@@ -468,15 +465,5 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
     public function getCurrencyCode()
     {
         return Mage::app()->getStore()->getCurrentCurrencyCode();
-    }
-
-    /**
-     * @param $message
-     */
-    public function writeLog($message)
-    {
-        if ((bool)$this->getConfigValue('debug', 0)) {
-            Mage::log('Yireo_GoogleTagManager: ' . $message);
-        }
     }
 }
