@@ -44,12 +44,37 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
                 'sku' => $this->quoteEscape($item->getSku()),
                 'name' => $this->quoteEscape($item->getName()),
                 'price' => $item->getPrice(),
-                'category' => implode('|', $product->getCategoryIds()),
+                'category' => $this->getProductCategoryTrees($product),
                 'quantity' => $item->getQtyOrdered(),
             );
         }
 
         return $data;
+    }
+
+    /**
+     * Return category trees of product
+     *
+     * @return string
+     */
+    public function getProductCategoryTrees($product, $categorySeparator = ' > ', $pathSeparator = ' | ')
+    {
+        $categoryIds = $product->getCategoryIds();
+        $categoryTrees = '';
+        foreach ($categoryIds as $categoryId) {
+            $tmpId = $categoryId;
+            $categories = array();
+            while ($tmpId != Mage::app()->getStore()->getRootCategoryId()) {
+                $category = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($tmpId);
+                $categories[] = $category;
+                $tmpId = $category->getParentId();
+            };
+            for ($i = count($categories) - 1; $i >= 0; $i--) {
+                $categoryTrees .= $categories[$i]->getName();
+                $categoryTrees .= $i > 0 ? $categorySeparator : $pathSeparator;
+            }
+        };
+        return $categoryTrees;
     }
 
     /**
