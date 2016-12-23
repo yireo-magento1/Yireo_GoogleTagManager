@@ -45,11 +45,6 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         foreach($quote->getAllItems() as $item) {
             /** @var Mage_Sales_Model_Quote_Item $item */
 
-        	// Only add composed types once
-        	if( $item->getParentItemId() ) {
-				continue; 
-			}
-
             $product = $item->getProduct();
 
             $info = array(
