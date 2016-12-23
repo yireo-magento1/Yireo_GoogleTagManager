@@ -45,14 +45,30 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         foreach($quote->getAllItems() as $item) {
             /** @var Mage_Sales_Model_Quote_Item $item */
 
+        	// Only add composed types once
+        	if( $item->getParentItemId() ) {
+				continue; 
+			}
+
             $product = $item->getProduct();
 
-            $data[] = array(
+            $info = array(
+                'id' => $product->getId(),
                 'sku' => $product->getSku(),
                 'name' => $product->getName(),
                 'price' => $this->taxHelper->getPrice($product, $product->getFinalPrice()),
                 'quantity' => $item->getQty(),
             );
+            $parent_ids = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
+            if(!empty($parent_ids)) {
+                $parent_collection = Mage::getResourceModel('catalog/product_collection')
+                    ->addFieldToFilter('entity_id', array('in'=>$parent_ids))
+                    ->addAttributeToSelect('sku');
+                $parent_skus = $parent_collection->getColumnValues('sku');
+                $info['parentId'] = implode(',', $parent_ids);
+                $info['parentSku'] = implode(',', $parent_skus);
+            }
+            $data[] = $info;
         }
 
         return $data;

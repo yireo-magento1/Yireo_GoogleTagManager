@@ -14,6 +14,21 @@
 class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_Default
 {
     /**
+     * @var $taxHelper Mage_Tax_Helper_Data
+     */
+    protected $taxHelper;
+    
+    /**
+     * Constructor
+     */
+    protected function _construct()
+    {
+        $this->taxHelper = Mage::helper('tax');
+
+        parent::_construct();
+    }
+    
+    /**
      * Return all items as array
      *
      * @return array
@@ -39,12 +54,23 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
 
             /** @var Mage_Catalog_Model_Product $product */
             $product = $item->getProduct();
-            $data[] = array(
-                'sku' => $item->getSku(),
-                'name' => $item->getName(),
-                'price' => $item->getPrice(),
+            $info = array(
+                'id' => $product->getId(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
+                'price' => $this->taxHelper->getPrice($product, $product->getFinalPrice()),
                 'quantity' => $item->getQtyOrdered(),
             );
+            $parent_ids = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($item->getId());
+            if(!empty($parent_ids)) {
+                $parent_collection = Mage::getResourceModel('catalog/product_collection')
+                    ->addFieldToFilter('entity_id', array('in'=>$parent_ids))
+                    ->addAttributeToSelect('sku');
+                $parent_skus = $parent_collection->getColumnValues('sku');
+                $info['parentId'] = implode(',', $parent_ids);
+                $info['parentSku'] = implode(',', $parent_skus);
+            }
+            $data[] = $info;
         }
 
         return $data;

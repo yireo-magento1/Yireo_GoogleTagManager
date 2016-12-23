@@ -30,6 +30,7 @@ if ($this->isEnabled()) {
         $productData = array(
             'name' => $product->getName(),
             'id' => $product->getId(),
+            'sku' => $product->getSku(),
             'fullPrice' => $product->getPrice(),
             'price' => $product->getFinalPrice(),
             'brand' => $product->getManufacturer(),
