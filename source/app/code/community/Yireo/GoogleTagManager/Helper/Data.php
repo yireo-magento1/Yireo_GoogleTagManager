@@ -267,7 +267,7 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $productCollection = $searchBlock->getProductCollection();
-        if (empty($productCollection) || $productCollection->count() < 1) {
+        if (empty($productCollection) || $productCollection->getSize() < 1) {
             return '';
         }
 
