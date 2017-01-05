@@ -13,7 +13,7 @@ if ($this->isEnabled()) {
     /** @var Mage_Catalog_Model_Product $product */
     $product = $this->getProduct();
 
-    $store = Mage::app()->getStore('default');
+    $store = Mage::app()->getStore(0);
     $taxCalculation = Mage::getModel('tax/calculation');
     $request = $taxCalculation->getRateRequest(null, null, null, $store);
     $taxClassId = $product->getTaxClassId();
@@ -26,16 +26,16 @@ if ($this->isEnabled()) {
         if (($specialPrice > 0) && ($specialPrice < $price)) {
             $price = $specialPrice;
         }
-        $tax = ($taxpercent / 100) * $price;
+        $tax = ($price / (100 + $taxpercent)) * $taxpercent;
         $gender = Mage::getModel('catalog/resource_eav_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'gender')->getSource()->getOptionText($product->getGender());
 
 
         $this->addAttribute('productId', $product->getId());
         $this->addAttribute('productName', $this->quoteEscape($product->getName()));
         $this->addAttribute('productSku', $this->quoteEscape($product->getSku()));
-        $this->addAttribute('productPrice', $price);
+        $this->addAttribute('productPrice', number_format($price, 2));
         $this->addAttribute('productPriceExcludingTax', number_format($price - $tax, 2));
-        $this->addAttribute('productTax', $tax);
+        $this->addAttribute('productTax', number_format($tax, 2));
         $this->addAttribute('productTaxRate', $taxpercent);
         $this->addAttribute('productGender', $gender);
         $children = array();
