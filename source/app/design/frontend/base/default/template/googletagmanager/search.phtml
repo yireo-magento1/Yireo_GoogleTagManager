@@ -24,11 +24,26 @@ if ($this->isEnabled()) {
                 break;
             }
 
+            $taxCalculation = Mage::getModel('tax/calculation');
+            $request = $taxCalculation->getRateRequest(null, null, null, $store);
+            $taxClassId = $product->getTaxClassId();
+            $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+            $price = $product->getPrice();
+            $specialPrice = $product->getSpecialprice();
+            if (($specialPrice > 0) && ($specialPrice < $price)) {
+                $price = $specialPrice;
+            }
+            $tax = ($taxpercent / 100) * $price;
+
             $categoryProduct = array();
             $categoryProduct['id'] = $product->getId();
             $categoryProduct['name'] = $this->quoteEscape($product->getName());
             $categoryProduct['sku'] = $this->quoteEscape($product->getSku());
-            $categoryProduct['price'] = $product->getPrice();
+            $categoryProduct['price'] = $price;
+            $categoryProduct['priceexcludingtax'] = number_format($price - $tax, 2);
+            $categoryProduct['tax'] = number_format($tax, 2);
+            $categoryProduct['taxrate'] = $taxpercent;
             $categoryProduct['position'] = $i;
 
             $categoryProducts[] = $categoryProduct;

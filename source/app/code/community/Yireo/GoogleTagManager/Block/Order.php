@@ -38,7 +38,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
 	    }
 
             /** @var Mage_Catalog_Model_Product $product */
-            $product = $item->getProduct()
+            $product = $item->getProduct();
 
             $taxCalculation = Mage::getModel('tax/calculation');
             $request = $taxCalculation->getRateRequest(null, null, null, $store);
