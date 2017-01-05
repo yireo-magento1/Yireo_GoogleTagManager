@@ -17,7 +17,7 @@ if ($this->isEnabled()) {
         $this->addAttribute('transactionAffiliation', $this->quoteEscape(Mage::app()->getWebsite()->getName()));
         $this->addAttribute('transactionTotal', (float)$order->getGrandTotal());
         $this->addAttribute('transactionSubtotal', (float)$order->getSubtotal());
-        $this->addAttribute('transactionTax', (float)$order->getData('base_tax_amount'));
+        $this->addAttribute('transactionTax', $order->getGrandTotal() - $order->getShippingAmount() - $order->getSubtotal());
         $this->addAttribute('transactionShipping', (float)$order->getShippingAmount());
         $this->addAttribute('transactionPayment', $this->quoteEscape($order->getPayment()->getMethodInstance()->getTitle()));
         $this->addAttribute('transactionCurrency', Mage::app()->getStore()->getBaseCurrencyCode());

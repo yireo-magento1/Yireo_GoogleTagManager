@@ -42,16 +42,33 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         }
 
         $data = array();
-        foreach($quote->getAllItems() as $item) {
+        foreach($quote->getAllVisibleItems() as $item) { /* Changed from getAllItems to ignore configurable / simple duplicate products */
             /** @var Mage_Sales_Model_Quote_Item $item */
 
             $product = $item->getProduct();
+
+            $taxCalculation = Mage::getModel('tax/calculation');
+            $request = $taxCalculation->getRateRequest(null, null, null, $store);
+            $taxClassId = $product->getTaxClassId();
+            $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+            $price = $product->getPrice();
+            $specialPrice = $product->getSpecialprice();
+            if (($specialPrice > 0) && ($specialPrice < $price)) {
+                $price = $specialPrice;
+            }
+            $tax = ($price / (100 + $taxpercent)) * $taxpercent;
 
             $data[] = array(
                 'id' => $product->getId(),
                 'sku' => $this->quoteEscape($product->getSku()),
                 'name' => $this->quoteEscape($product->getName()),
-                'price' => $this->taxHelper->getPrice($product, $product->getFinalPrice()),
+                'price' => $price,
+                'priceexcludingtax' => number_format($price - $tax, 2),
+                'tax' => number_format($tax, 2),
+                'taxrate' => $taxpercent,
+                'type' => $item->getProductType(),
+                'category' => implode('|', $product->getCategoryIds()),
                 'quantity' => $item->getQty(),
             );
         }

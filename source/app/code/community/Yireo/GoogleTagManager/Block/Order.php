@@ -28,22 +28,39 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
 
         $data = array();
 
-        foreach($order->getAllItems() as $item) {
+        foreach($order->getAllVisibleItems() as $item) { /* Changed from getAllItems to ignore configurable / simple duplicate products */
 
             /** @var Mage_Sales_Model_Order_Item $item */
 
-        	// Only add composed types once
-        	if( $item->getParentItemId() ) {
-				continue; 
-			}
+            // Only add composed types once
+            if( $item->getParentItemId() ) {
+	        continue;
+	    }
 
             /** @var Mage_Catalog_Model_Product $product */
             $product = $item->getProduct();
+
+            $taxCalculation = Mage::getModel('tax/calculation');
+            $request = $taxCalculation->getRateRequest(null, null, null, $store);
+            $taxClassId = $product->getTaxClassId();
+            $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+            $price = $product->getPrice();
+            $specialPrice = $product->getSpecialprice();
+            if (($specialPrice > 0) && ($specialPrice < $price)) {
+                $price = $specialPrice;
+            }
+            $tax = ($price / (100 + $taxpercent)) * $taxpercent;
+
             $data[] = array(
                 'id' => $item->getId(),
                 'sku' => $this->quoteEscape($item->getSku()),
                 'name' => $this->quoteEscape($item->getName()),
-                'price' => $item->getPrice(),
+                'price' => $price,
+                'priceexcludingtax' => number_format($price - $tax, 2),
+                'tax' => number_format($tax, 2),
+                'taxrate' => $taxpercent,
+                'type' => $item->getProductType(),
                 'category' => $this->getProductCategoryTrees($product),
                 'quantity' => $item->getQtyOrdered(),
             );

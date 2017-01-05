@@ -23,7 +23,7 @@ if($this->isEnabled()) {
         $this->addAttribute('transactionId', $quote->getId()); 
         $this->addAttribute('transactionAffiliation', $this->quoteEscape(Mage::app()->getWebsite()->getName())); 
         $this->addAttribute('transactionTotal', (float)$quote->getGrandTotal()); 
-        $this->addAttribute('transactionTax', $tax); 
+        $this->addAttribute('transactionTax', $quote->getGrandTotal() - $quote->getShippingAmount() - $quote->getSubtotal()); 
         $this->addAttribute('transactionProducts', $this->getItemsAsArray());
     } 
 } 
