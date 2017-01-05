@@ -50,7 +50,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
             if (($specialPrice > 0) && ($specialPrice < $price)) {
                 $price = $specialPrice;
             }
-            $tax = ($taxpercent / 100) * $price;
+            $tax = ($price / (100 + $taxpercent)) * $taxpercent;
 
             $data[] = array(
                 'id' => $item->getId(),
