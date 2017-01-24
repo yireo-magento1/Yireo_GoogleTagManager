@@ -15,6 +15,7 @@ if ($loadProducts > 0) {
 
 if ($this->isEnabled() && !empty($products)) {
     $this->addAttribute('categorySize', $products->getSize());
+    $store = $this->getStore();
     $categoryProducts = array();
 
     $i = 0;

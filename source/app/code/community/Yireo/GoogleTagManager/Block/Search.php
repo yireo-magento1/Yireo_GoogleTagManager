@@ -75,4 +75,9 @@ class Yireo_GoogleTagManager_Block_Search extends Yireo_GoogleTagManager_Block_C
 
         return $direction;
     }
+
+    public function getStore()
+    {
+        return Mage::app()->getStore();
+    }
 }
