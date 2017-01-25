@@ -38,8 +38,6 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     protected function _construct()
     {
-        $this->setCacheLifetime(86400);
-
         $this->moduleHelper = Mage::helper('googletagmanager');
         $this->container = Mage::getSingleton('googletagmanager/container');
         $this->layout = Mage::app()->getLayout();
