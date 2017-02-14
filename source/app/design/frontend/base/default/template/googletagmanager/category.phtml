@@ -15,6 +15,7 @@ if ($loadProducts > 0) {
 
 if ($this->isEnabled()) {
     $category = $this->getCategory();
+    $store = $this->getStore();
     if (!empty($category) && $category->getId() > 0) {
         $this->addAttribute('categoryId', $category->getId());
         $this->addAttribute('categoryName', $this->quoteEscape($category->getName()));

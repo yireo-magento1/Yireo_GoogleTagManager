@@ -22,6 +22,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $this->getOrder();
+        $store = $this->getStore();
         if (empty($order)) {
             return array();
         }

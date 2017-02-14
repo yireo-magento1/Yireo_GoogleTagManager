@@ -13,7 +13,7 @@ if ($this->isEnabled()) {
     /** @var Mage_Catalog_Model_Product $product */
     $product = $this->getProduct();
 
-    $store = Mage::app()->getStore(0);
+    $store = $this->getStore();
     $taxCalculation = Mage::getModel('tax/calculation');
     $request = $taxCalculation->getRateRequest(null, null, null, $store);
     $taxClassId = $product->getTaxClassId();

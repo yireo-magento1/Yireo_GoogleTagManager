@@ -37,6 +37,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
     {
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->getQuote();
+        $store = $this->getStore();
         if (empty($quote)) {
             return array();
         }
