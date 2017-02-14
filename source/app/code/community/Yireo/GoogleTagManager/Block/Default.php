@@ -78,6 +78,16 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     }
 
     /**
+     * Get current store details
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        return Mage::app()->getStore();
+    }
+
+    /**
      * Return a configuration value
      *
      * @param null $key
