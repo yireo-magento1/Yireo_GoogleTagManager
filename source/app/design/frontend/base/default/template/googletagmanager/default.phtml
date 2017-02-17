@@ -16,16 +16,16 @@ $route = $moduleName . '/' . $controllerName . '/' . $actionName;
 <?php if ($this->isEnabled()) : ?>
     <?php $this->addAttribute('pageType', $route); ?>
     <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=<?= $this->getId(); ?>" height="0" width="0"
+        <iframe src="//www.googletagmanager.com/ns.html?id=<?php echo $this->getId(); ?>" height="0" width="0"
                 style="display:none;visibility:hidden"></iframe>
     </noscript>
     <?php $childScript = $this->getChildScript(); ?>
     <script>
         <?php if (!empty($childScript)) : ?>
-        <?php if($this->hasAttributes()) : ?>
-        dataLayer = [<?= $this->getAttributesAsJson(); ?>];
-        <?php endif; ?>
-        <?= $childScript; ?>
+            <?php if($this->hasAttributes()) : ?>
+                dataLayer = [<?= $this->getAttributesAsJson(); ?>];
+            <?php endif; ?>
+            <?php echo $childScript; ?>
         <?php endif; ?>
         (function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -34,6 +34,6 @@ $route = $moduleName . '/' . $controllerName . '/' . $actionName;
             j.async = true;
             j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', '<?= $this->getId(); ?>');
+        })(window, document, 'script', 'dataLayer', '<?php echo $this->getId(); ?>');
     </script>
 <?php endif; ?>
