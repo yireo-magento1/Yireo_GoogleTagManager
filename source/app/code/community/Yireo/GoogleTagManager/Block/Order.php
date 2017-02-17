@@ -75,24 +75,49 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
      *
      * @return string
      */
-    public function getProductCategoryTrees($product, $categorySeparator = ' > ', $pathSeparator = ' | ')
+    public function getProductCategoryTrees(Mage_Catalog_Model_Product $product, $categorySeparator = ' > ', $pathSeparator = ' | ')
     {
-        $categoryIds = $product->getCategoryIds();
-        $categoryTrees = '';
-        foreach ($categoryIds as $categoryId) {
-            $tmpId = $categoryId;
-            $categories = array();
-            while ($tmpId != Mage::app()->getStore()->getRootCategoryId()) {
-                $category = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($tmpId);
-                $categories[] = $category;
-                $tmpId = $category->getParentId();
-            };
-            for ($i = count($categories) - 1; $i >= 0; $i--) {
-                $categoryTrees .= $categories[$i]->getName();
-                $categoryTrees .= $i > 0 ? $categorySeparator : $pathSeparator;
+        $allCategories = $this->loadAllProductCategories();
+        $categoryPaths = [];
+
+        foreach ($product->getCategoryIds() as $categoryId) {
+            $category = $allCategories[$categoryId];
+            $categoryPath = [];
+            foreach ($category['path'] as $pathId) {
+                if ($pathId ==  1) {
+                    continue;
+                }
+
+                if ($pathId ===  Mage::app()->getStore()->getRootCategoryId()) {
+                    continue;
+                }
+
+                $categoryPath[] = $allCategories[$pathId]['name'];
             }
-        };
-        return $categoryTrees;
+
+            $categoryPaths[] = implode($categorySeparator, $categoryPath);
+        }
+
+        return implode($pathSeparator, $categoryPaths);
+    }
+
+    /**
+     * @return array
+     */
+    private function loadAllProductCategories()
+    {
+        static $listing = [];
+        if (!empty($listing)) {
+            return $listing;
+        }
+
+        $collection = Mage::getModel('catalog/category')->getCollection()->addAttributeToSelect('name');
+        foreach ($collection as $category) {
+            /** @var $category Mage_Catalog_Model_Category */
+            $listing[$category->getId()] = ['name' => $category->getName(), 'path' => $category->getPathIds()];
+        }
+
+        return $listing;
     }
 
     /**
