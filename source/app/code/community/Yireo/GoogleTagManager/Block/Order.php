@@ -104,7 +104,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
     /**
      * @return array
      */
-    private function loadAllProductCategories()
+    protected function loadAllProductCategories()
     {
         static $listing = [];
         if (!empty($listing)) {
