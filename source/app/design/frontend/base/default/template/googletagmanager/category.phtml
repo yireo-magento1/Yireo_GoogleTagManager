@@ -43,7 +43,6 @@ if ($this->isEnabled()) {
                 $price = $specialPrice;
             }
             $tax = ($price / (100 + $taxpercent)) * $taxpercent;
-            $gender = Mage::getModel('catalog/resource_eav_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'gender')->getSource()->getOptionText($product->getGender());
 
             $categoryProduct = array();
             $categoryProduct['id'] = $product->getId();
@@ -53,7 +52,6 @@ if ($this->isEnabled()) {
             $categoryProduct['priceexcludingtax'] = number_format($price - $tax, 2);
             $categoryProduct['tax'] = number_format($tax, 2);
             $categoryProduct['taxrate'] = $taxpercent;
-            $categoryProduct['gender'] = $gender;
 
             if (!empty($category) && $category->getId() > 0) {
                 $categoryProduct['category'] = $this->quoteEscape($category->getName());
