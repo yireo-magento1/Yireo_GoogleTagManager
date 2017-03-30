@@ -1,0 +1,19 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2017 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+
+/** @var Yireo_GoogleTagManager_Block_Category $block */
+$category = $this->getCategory();
+
+if ($this->isEnabled() && $category) {
+    if (!empty($category) && $category->getId() > 0) {
+        $this->addAttribute('categoryId', $category->getId());
+        $this->addAttribute('categoryName', $this->quoteEscape($category->getName()));
+    }
+}

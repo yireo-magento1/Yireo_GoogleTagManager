@@ -4,7 +4,7 @@
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2017 Yireo (https://www.yireo.com/)
  * @license     Open Source License (OSL v3)
  */
 
@@ -17,6 +17,11 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      * @var $moduleHelper Yireo_GoogleTagManager_Helper_Data
      */
     protected $moduleHelper;
+
+    /**
+     * @var $scriptHelper Yireo_GoogleTagManager_Helper_Script
+     */
+    protected $scriptHelper;
 
     /**
      * @var $container Yireo_GoogleTagManager_Model_Container
@@ -39,6 +44,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     protected function _construct()
     {
         $this->moduleHelper = Mage::helper('googletagmanager');
+        $this->scriptHelper = Mage::helper('googletagmanager/script');
         $this->container = Mage::getSingleton('googletagmanager/container');
         $this->layout = Mage::app()->getLayout();
         $this->catalogConfig = Mage::getModel('catalog/config');
@@ -101,13 +107,23 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     }
 
     /**
-     * Get the GA helper
+     * Get the main helper
      *
      * @return Yireo_GoogleTagManager_Helper_Data
      */
     public function getModuleHelper()
     {
         return $this->moduleHelper;
+    }
+
+    /**
+     * Get the script helper
+     *
+     * @return Yireo_GoogleTagManager_Helper_Script
+     */
+    public function getScriptHelper()
+    {
+        return $this->scriptHelper;
     }
 
     /**
@@ -169,16 +185,6 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     }
 
     /**
-     * Return a product collection
-     *
-     * @return bool|object
-     */
-    public function getProductCollection()
-    {
-        return false;
-    }
-
-    /**
      * @param $data
      *
      * @return string
@@ -188,14 +194,6 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
         $string = json_encode($data, JSON_HEX_APOS);
         $string = str_replace('"', "'", $string);
         return $string;
-    }
-
-    /**
-     * @param $childScript
-     */
-    public function setChildScript($childScript)
-    {
-        $this->childScript = $childScript;
     }
 
     /**

@@ -4,13 +4,13 @@
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2017 Yireo (https://www.yireo.com/)
  * @license     Open Source License (OSL v3)
  */
 
 /**
- * Class Yireo_GoogleTagManager_Block_Search
+ * Class Yireo_GoogleTagManager_Block_Noscript
  */
-class Yireo_GoogleTagManager_Block_Search extends Yireo_GoogleTagManager_Block_Category
+class Yireo_GoogleTagManager_Block_Noscript extends Yireo_GoogleTagManager_Block_Default
 {
 }

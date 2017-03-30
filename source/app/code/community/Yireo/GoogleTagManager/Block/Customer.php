@@ -13,4 +13,28 @@
  */
 class Yireo_GoogleTagManager_Block_Customer extends Yireo_GoogleTagManager_Block_Default
 {
+    /**
+     * @return Mage_Customer_Model_Customer
+     */
+    public function getCustomer()
+    {
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        $customer = $customerSession->getCustomer();
+        return $customer;
+    }
+
+    /**
+     * @return Mage_Customer_Model_Group
+     */
+    public function getCustomerGroup()
+    {
+        $customer = $this->getCustomer();
+
+        /** @var Mage_Customer_Model_Group $customerGroup */
+        $customerGroup = Mage::getSingleton('customer/group');
+        $customerGroup->load($customer->getGroupId());
+
+        return $customerGroup;
+    }
 }

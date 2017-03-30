@@ -23,6 +23,7 @@ if($this->isEnabled()) {
         $this->addAttribute('customerLoggedIn', 0);
         $this->addAttribute('customerId', 0);
     }
+
     $this->addAttribute('customerGroupId', $customerGroup->getId());
     $this->addAttribute('customerGroupCode', strtoupper($this->quoteEscape($customerGroup->getCustomerGroupCode())));
 }

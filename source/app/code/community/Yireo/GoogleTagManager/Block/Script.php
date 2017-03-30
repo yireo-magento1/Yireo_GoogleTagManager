@@ -13,13 +13,5 @@
  */
 class Yireo_GoogleTagManager_Block_Script extends Yireo_GoogleTagManager_Block_Default
 {
-    /**
-     * Return the JavaScript for insertion in the HTML header
-     *
-     * @return string
-     */
-    public function getScript()
-    {
-        return $this->moduleHelper->getHeaderScript();
-    }
+
 }

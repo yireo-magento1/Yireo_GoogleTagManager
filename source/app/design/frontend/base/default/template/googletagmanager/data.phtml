@@ -1,0 +1,24 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2017 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+
+/** @var Yireo_GoogleTagManager_Block_Data $block */
+
+?>
+<!-- GTM data -->
+<?php if ($this->isEnabled()) : ?>
+    <?php $childHtml = $this->getChildHtml(); ?>
+    <?php $this->addAttribute('pageType', $this->getPageType()); ?>
+    <script>
+        <?php if($this->hasAttributes()) : ?>
+        dataLayer = [<?= $this->getAttributesAsJson(); ?>];
+        <?php endif; ?>
+        <?php echo $childHtml; ?>
+    </script>
+<?php endif; ?>

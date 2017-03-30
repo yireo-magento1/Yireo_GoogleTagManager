@@ -5,34 +5,32 @@
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2017 Yireo (https://www.yireo.com/)
  * @license     Open Source License (OSL)
  */
  -->
 <layout>
     <default>
-        <block type="googletagmanager/customer" name="googletagmanager_customer" template="googletagmanager/customer.phtml" />
-        <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/order.phtml" />
-        <block type="googletagmanager/quote" name="googletagmanager_quote" template="googletagmanager/quote.phtml" />
-        <block type="googletagmanager/product" name="googletagmanager_product" template="googletagmanager/product.phtml" />
-        <block type="googletagmanager/category" name="googletagmanager_category" template="googletagmanager/category.phtml" />
-        <block type="googletagmanager/search" name="googletagmanager_search" template="googletagmanager/search.phtml" />
-        <block type="googletagmanager/tag" name="googletagmanager_tag" template="googletagmanager/tag.phtml" />
-        <block type="googletagmanager/ecommerce" name="googletagmanager_ecommerce" template="googletagmanager/ecommerce.phtml" />
-        <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/custom.phtml" />
-        <block type="googletagmanager/default" name="googletagmanager" template="googletagmanager/default.phtml" />
-        <block type="googletagmanager/script" name="googletagmanager_script" template="googletagmanager/script.phtml" />
+        <reference name="head" before="-">
+            <block type="googletagmanager/head" name="googletagmanager_head" template="googletagmanager/head.phtml" />
+        </reference>
 
         <reference name="after_body_start">
-            <action method="append" ifconfig="googletagmanager/settings/method">
-                <block>googletagmanager_script</block>
-            </action>
+            <block type="googletagmanager/noscript" name="googletagmanager_noscript" template="googletagmanager/noscript.phtml" />
+        </reference>
+
+        <reference name="before_body_end">
+            <block type="googletagmanager/data" name="googletagmanager_data" template="googletagmanager/data.phtml">
+                <block type="googletagmanager/customer" name="googletagmanager_customer" template="googletagmanager/data/customer.phtml" />
+                <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/data/order.phtml" />
+                <block type="googletagmanager/quote" name="googletagmanager_quote" template="googletagmanager/data/quote.phtml" />
+                <block type="googletagmanager/product" name="googletagmanager_product" template="googletagmanager/data/product.phtml" />
+                <block type="googletagmanager/category" name="googletagmanager_category" template="googletagmanager/data/category.phtml" />
+                <block type="googletagmanager/search" name="googletagmanager_search" template="googletagmanager/data/search.phtml" />
+                <block type="googletagmanager/tag" name="googletagmanager_tag" template="googletagmanager/data/tag.phtml" />
+                <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/data/custom.phtml" />
+                <block type="googletagmanager/ecommerce" name="googletagmanager_ecommerce" template="googletagmanager/data/ecommerce.phtml" />
+            </block>
         </reference>
     </default>
-
-    <!--
-    <checkout_onepage_success>
-        <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/order.phtml" />
-    </checkout_onepage_success>
-    -->
 </layout>

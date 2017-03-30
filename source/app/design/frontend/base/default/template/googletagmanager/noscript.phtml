@@ -1,0 +1,19 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2017 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+
+/** @var Yireo_GoogleTagManager_Block_Default $block */
+
+$style = 'display:none;visibility:hidden';
+?>
+<?php if ($this->isEnabled()) : ?>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=<?= $this->getId(); ?>" height="0" width="0" style="<?= $style ?>"></iframe>
+    </noscript>
+<?php endif; ?>

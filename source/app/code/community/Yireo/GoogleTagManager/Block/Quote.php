@@ -27,6 +27,20 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
 
         parent::_construct();
     }
+
+    /**
+     * @return Mage_Sales_Model_Quote|null
+     */
+    public function getQuote()
+    {
+        $lastOrderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+        if (!empty($lastOrderId)) {
+            return null;
+        }
+
+        $quote = Mage::getModel('checkout/cart')->getQuote();
+        return $quote;
+    }
     
     /**
      * Return all quote items as array

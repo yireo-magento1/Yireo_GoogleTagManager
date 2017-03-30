@@ -4,19 +4,17 @@
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2017 Yireo (https://www.yireo.com/)
  * @license     Open Software License
  */
 
-if($this->isEnabled()) {
-    $quote = $this->getQuote();
-    $totals = Mage::getSingleton('checkout/session')->getQuote()->getTotals();
-    if(isset($totals['tax'])) {
-      $tax = $totals['tax']->getValue();
-  	} 
-  	else {
-      $tax = '';
-  	}
+/** @var Yireo_GoogleTagManager_Block_Quote $block */
+$quote = $this->getQuote();
+
+if($this->isEnabled() && $quote) {
+    $totals = $quote->getTotals();
+    $tax = (isset($totals['tax'])) ? $totals['tax']->getValue() : '';
+
     if(!empty($quote) && $quote->getId() > 0) { 
         $this->addAttribute('transactionEntity', 'QUOTE'); 
         $this->addAttribute('transactionId', $quote->getId()); 

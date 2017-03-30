@@ -4,14 +4,15 @@
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright (c) 2017 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
  * @license     Open Software License
  */
 
-if ($this->isEnabled()) {
+/** @var Yireo_GoogleTagManager_Block_Product $block */
+/** @var Mage_Catalog_Model_Product $product */
+$product = $this->getProduct();
 
-    /** @var Mage_Catalog_Model_Product $product */
-    $product = $this->getProduct();
+if ($this->isEnabled() && $product) {
 
     $store = $this->getStore();
     $taxCalculation = Mage::getModel('tax/calculation');
@@ -28,7 +29,6 @@ if ($this->isEnabled()) {
         }
         $tax = ($price / (100 + $taxpercent)) * $taxpercent;
         $gender = Mage::getModel('catalog/resource_eav_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'gender')->getSource()->getOptionText($product->getGender());
-
 
         $this->addAttribute('productId', $product->getId());
         $this->addAttribute('productName', $this->quoteEscape($product->getName()));
@@ -56,7 +56,7 @@ if ($this->isEnabled()) {
         $categoryName = (is_object($category)) ? $this->quoteEscape($category->getName()) : null;
 
         if (!empty($categoryName)) {
-            $this->getModuleHelper()->addEcommerceData('actionField', array('list' => $categoryName));
+            $this->getScriptHelper()->addEcommerceData('actionField', array('list' => $categoryName));
         }
 
         $productData = array(
@@ -73,6 +73,6 @@ if ($this->isEnabled()) {
             'children' => $children,
         );
 
-        $this->getModuleHelper()->addEcommerceData('detail', array($productData));
+        $this->getScriptHelper()->addEcommerceData('detail', array($productData));
     }
 }
