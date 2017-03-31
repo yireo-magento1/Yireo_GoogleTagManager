@@ -19,4 +19,4 @@ before_script:
   - sed -i 's/\^image\.\*/\^foobar\.\*/g' vendor/magento-ecg/coding-standard/Ecg/Sniffs/Security/ForbiddenFunctionSniff.php
 
 script:
-  - phpcs --standard=vendor/magento-ecg/coding-standard/Ecg -sv --encoding=utf-8 ./source
+  - ~/.composer/vendor/bin/phpcs --standard=vendor/magento-ecg/coding-standard/Ecg -sv --encoding=utf-8 ./source
