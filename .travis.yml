@@ -8,8 +8,8 @@ before_script:
   - phpenv config-rm xdebug.ini
   - composer self-update
   - composer install --dev
+  - composer global require "squizlabs/php_codesniffer=*"
   - composer require magento-ecg/coding-standard
-  - pear install PHP_CodeSniffer
   - phpenv rehash
   - sed -i 's/\^file\.\*/\^foobar\.\*/g' vendor/magento-ecg/coding-standard/Ecg/Sniffs/Security/ForbiddenFunctionSniff.php
   - sed -i 's/\^dirname/\^foobar\.\*/g' vendor/magento-ecg/coding-standard/Ecg/Sniffs/Security/ForbiddenFunctionSniff.php
