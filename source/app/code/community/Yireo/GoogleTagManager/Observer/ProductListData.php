@@ -44,7 +44,7 @@ class Yireo_GoogleTagManager_Observer_ProductListData
         $block = $event->getBlock();
 
         // Try to extend the product-list block
-        $this->extendProductListBlock($block, $event);
+        $this->extendProductListBlock($block);
 
         return $this;
     }
@@ -55,7 +55,7 @@ class Yireo_GoogleTagManager_Observer_ProductListData
      *
      * @return bool
      */
-    protected function extendProductListBlock(Mage_Core_Block_Abstract $block, Varien_Event $event)
+    protected function extendProductListBlock(Mage_Core_Block_Abstract $block)
     {
         /** @var Mage_Catalog_Block_Product_List $block */
         if (!$this->allowBlock($block)) {
