@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Yireo_GoogleTagManager>
-            <version>1.4.0</version>
+            <version>1.4.1</version>
         </Yireo_GoogleTagManager>
     </modules>
 
@@ -46,11 +46,16 @@
         <events>
             <core_block_abstract_to_html_after>
                 <observers>
-                    <googletagmanager_observer>
+                    <googletagmanager_product_list_data>
                         <type>singleton</type>
                         <class>Yireo_GoogleTagManager_Observer_ProductListData</class>
                         <method>execute</method>
-                    </googletagmanager_observer>
+                    </googletagmanager_product_list_data>
+                    <googletagmanager_data_layer>
+                        <type>singleton</type>
+                        <class>Yireo_GoogleTagManager_Observer_LazyLoadDataLayer</class>
+                        <method>execute</method>
+                    </googletagmanager_data_layer>
                 </observers>
             </core_block_abstract_to_html_after>
         </events>

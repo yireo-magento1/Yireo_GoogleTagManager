@@ -11,14 +11,11 @@
 /** @var Yireo_GoogleTagManager_Block_Data $block */
 
 ?>
-<!-- GTM data -->
 <?php if ($this->isEnabled()) : ?>
     <?php $childHtml = $this->getChildHtml(); ?>
     <?php $this->addAttribute('pageType', $this->getPageType()); ?>
-    <script>
         <?php if($this->hasAttributes()) : ?>
-        dataLayer = [<?= $this->getAttributesAsJson(); ?>];
+        var dataLayer = [(<?= $this->getAttributesAsJson(); ?>)];
         <?php endif; ?>
         <?php echo $childHtml; ?>
-    </script>
 <?php endif; ?>

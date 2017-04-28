@@ -13,8 +13,9 @@
 ?>
 <?php if ($this->isEnabled()) : ?>
     <script>
+        var dataLayer = [];
         (function (w, d, s, l, i) {
-            if (i == '') return console.log('No GTM ID provided');
+            if (i == '') { return console.log('No GTM ID provided'); }
             w[l] = w[l] || [];
             w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
             var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';

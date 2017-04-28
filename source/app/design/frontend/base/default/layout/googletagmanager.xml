@@ -12,25 +12,23 @@
 <layout>
     <default>
         <reference name="head" before="-">
-            <block type="googletagmanager/head" name="googletagmanager_head" template="googletagmanager/head.phtml" />
+            <block type="googletagmanager/head" name="googletagmanager_head" template="googletagmanager/head.phtml"/>
         </reference>
 
         <reference name="after_body_start">
-            <block type="googletagmanager/noscript" name="googletagmanager_noscript" template="googletagmanager/noscript.phtml" />
+            <block type="googletagmanager/noscript" name="googletagmanager_noscript" template="googletagmanager/noscript.phtml"/>
         </reference>
 
-        <reference name="before_body_end">
-            <block type="googletagmanager/data" name="googletagmanager_data" template="googletagmanager/data.phtml">
-                <block type="googletagmanager/customer" name="googletagmanager_customer" template="googletagmanager/data/customer.phtml" />
-                <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/data/order.phtml" />
-                <block type="googletagmanager/quote" name="googletagmanager_quote" template="googletagmanager/data/quote.phtml" />
-                <block type="googletagmanager/product" name="googletagmanager_product" template="googletagmanager/data/product.phtml" />
-                <block type="googletagmanager/category" name="googletagmanager_category" template="googletagmanager/data/category.phtml" />
-                <block type="googletagmanager/search" name="googletagmanager_search" template="googletagmanager/data/search.phtml" />
-                <block type="googletagmanager/tag" name="googletagmanager_tag" template="googletagmanager/data/tag.phtml" />
-                <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/data/custom.phtml" />
-                <block type="googletagmanager/ecommerce" name="googletagmanager_ecommerce" template="googletagmanager/data/ecommerce.phtml" />
-            </block>
-        </reference>
+        <block type="googletagmanager/data" name="googletagmanager_data" template="googletagmanager/data.phtml">
+            <block type="googletagmanager/customer" name="googletagmanager_customer" template="googletagmanager/data/customer.phtml"/>
+            <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/data/order.phtml"/>
+            <block type="googletagmanager/quote" name="googletagmanager_quote" template="googletagmanager/data/quote.phtml"/>
+            <block type="googletagmanager/product" name="googletagmanager_product" template="googletagmanager/data/product.phtml"/>
+            <block type="googletagmanager/category" name="googletagmanager_category" template="googletagmanager/data/category.phtml"/>
+            <block type="googletagmanager/search" name="googletagmanager_search" template="googletagmanager/data/search.phtml"/>
+            <block type="googletagmanager/tag" name="googletagmanager_tag" template="googletagmanager/data/tag.phtml"/>
+            <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/data/custom.phtml"/>
+            <block type="googletagmanager/ecommerce" name="googletagmanager_ecommerce" template="googletagmanager/data/ecommerce.phtml"/>
+        </block>
     </default>
 </layout>
