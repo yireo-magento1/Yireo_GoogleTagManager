@@ -19,11 +19,23 @@ class Yireo_GoogleTagManager_Observer_ProductListData
     protected $helper;
 
     /**
+     * @var Yireo_GoogleTagManager_Helper_Script
+     */
+    protected $scriptHelper;
+
+    /**
+     * @var Yireo_GoogleTagManager_Model_Container
+     */
+    protected $container;
+
+    /**
      * Yireo_GoogleTagManager_Model_Observer constructor.
      */
     public function __construct()
     {
         $this->helper = Mage::helper('googletagmanager');
+        $this->scriptHelper = Mage::helper('googletagmanager/script');
+        $this->container = Mage::getSingleton('googletagmanager/container');
     }
 
     /**
@@ -72,10 +84,10 @@ class Yireo_GoogleTagManager_Observer_ProductListData
             $i++;
         }
 
-        $container = Mage::getSingleton('googletagmanager/container');
-        $container->setData('categoryProducts', $categoryProducts);
-        $container->setData('categorySize', count($categoryProducts));
-        Mage::helper('googletagmanager/script')->addEcommerceData('impressions', $categoryProducts);
+        $this->container->setData('categoryProducts', $categoryProducts);
+        $this->container->setData('categorySize', count($categoryProducts));
+
+        $this->scriptHelper->addEcommerceData('impressions', $categoryProducts);
 
         return true;
     }
@@ -149,6 +161,8 @@ class Yireo_GoogleTagManager_Observer_ProductListData
     protected function getTaxPercentage(Mage_Catalog_Model_Product $product)
     {
         $store = Mage::app()->getStore();
+
+        /** @var Mage_Tax_Model_Calculation $taxCalculation */
         $taxCalculation = Mage::getModel('tax/calculation');
         $request = $taxCalculation->getRateRequest(null, null, null, $store);
         $taxClassId = $product->getTaxClassId();
