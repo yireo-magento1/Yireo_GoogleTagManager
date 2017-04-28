@@ -79,6 +79,10 @@ class Yireo_GoogleTagManager_Observer_LazyLoadDataLayer
 
         /** @var Yireo_GoogleTagManager_Block_Data $dataLayerBlock */
         $dataLayerBlock = $block->getLayout()->getBlock('googletagmanager_data');
+        if (!$dataLayerBlock) {
+            return false;
+        }
+
         $dataLayerHtml = trim($dataLayerBlock->toHtml());
 
         $html = str_replace('var dataLayer = [];', $dataLayerHtml, $html);
