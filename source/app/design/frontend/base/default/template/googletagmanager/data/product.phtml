@@ -62,13 +62,13 @@ if ($this->isEnabled() && $product) {
         $productData = array(
             'id' => $product->getId(),
             'name' => $this->quoteEscape($product->getName()),
+            'sku' => $product->getSku(),
             'price' => $product->getPrice(),
             'priceexcludingtax' => number_format($price - $tax, 2),
             'tax' => number_format($tax, 2),
             'taxrate' => $taxpercent,
-            'brand' => $product->getManufacturer(),
-            'gender' => $gender,
             'brand' => $this->quoteEscape($product->getManufacturer()),
+            'gender' => $gender,
             'category' => $categoryName,
             'children' => $children,
         );
