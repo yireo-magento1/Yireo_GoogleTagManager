@@ -61,27 +61,6 @@
         </events>
     </frontend>
 
-    <adminhtml>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <googletagmanager translate="title" module="googletagmanager">
-                                            <title>GoogleTagManager</title>
-                                        </googletagmanager>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
-    </adminhtml>
 
     <default>
         <googletagmanager>
