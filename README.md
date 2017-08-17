@@ -3,6 +3,11 @@ Magento extension for implementing Google Tag Manager in your Magento theme.
 
 More information: https://www.yireo.com/software/magento-extensions/google-tag-manager
 
+## Requirements
+
+1) PHP > 5.4
+2) Magento > 1.6
+
 ## Installation
 You can install this module in various ways:
 
