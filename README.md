@@ -33,7 +33,7 @@ Make sure to set the `magento-root-dir` properly. Test this by running:
 
 Once the composer installer is correctly setup, you can install our extension:    
 
-    composer require yireo/yireo_googletagmanager
+    composer require yireo/magento1-googletagmanager
 
 Done.
 
