@@ -18,7 +18,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
      */
     public function getLastOrderId()
     {
-        $lastOrderId = (int) Mage::getSingleton('checkout/session')->getLastRealOrderId();
+        $lastOrderId = (int)Mage::getSingleton('checkout/session')->getLastRealOrderId();
         return $lastOrderId;
     }
 
@@ -52,14 +52,14 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
 
         $data = array();
 
-        foreach($order->getAllVisibleItems() as $item) { /* Changed from getAllItems to ignore configurable / simple duplicate products */
+        /** @var Mage_Sales_Model_Order_Item $item */
+        foreach ($order->getAllVisibleItems() as $item) {
 
-            /** @var Mage_Sales_Model_Order_Item $item */
 
             // Only add composed types once
-            if( $item->getParentItemId() ) {
-	        continue;
-	    }
+            if ($item->getParentItemId()) {
+                continue;
+            }
 
             /** @var Mage_Catalog_Model_Product $product */
             $product = $item->getProduct();
@@ -107,11 +107,11 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
             $category = $allCategories[$categoryId];
             $categoryPath = [];
             foreach ($category['path'] as $pathId) {
-                if ($pathId ==  1) {
+                if ($pathId == 1) {
                     continue;
                 }
 
-                if ($pathId ===  Mage::app()->getStore()->getRootCategoryId()) {
+                if ($pathId === Mage::app()->getStore()->getRootCategoryId()) {
                     continue;
                 }
 
