@@ -45,7 +45,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
     /**
      * Return all quote items as array
      *
-     * @return string
+     * @return array
      */
     public function getItemsAsArray()
     {
@@ -62,6 +62,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
 
             $product = $item->getProduct();
 
+            /** @var Mage_Tax_Model_Calculation $taxCalculation */
             $taxCalculation = Mage::getModel('tax/calculation');
             $request = $taxCalculation->getRateRequest(null, null, null, $store);
             $taxClassId = $product->getTaxClassId();
