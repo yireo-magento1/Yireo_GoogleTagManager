@@ -162,4 +162,12 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
     {
         return Mage::app()->getWebsite()->getName();
     }
+
+    /**
+     * @return string
+     */
+    public function getCurrencyCode()
+    {
+        return Mage::app()->getStore()->getBaseCurrencyCode();
+    }
 }
