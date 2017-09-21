@@ -77,7 +77,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
             $tax = ($price / (100 + $taxpercent)) * $taxpercent;
 
             $data[] = array(
-                'id' => $item->getId(),
+                'id' => $product->getId(),
                 'sku' => $this->quoteEscape($item->getSku()),
                 'name' => $this->quoteEscape($item->getName()),
                 'price' => $price,
