@@ -154,4 +154,12 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
 
         return json_encode($data);
     }
+
+    /**
+     * @return string
+     */
+    public function getWebsiteName()
+    {
+        return Mage::app()->getWebsite()->getName();
+    }
 }

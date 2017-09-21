@@ -8,7 +8,7 @@
  * @license     Open Software License
  */
 
-/** @var Yireo_GoogleTagManager_Block_Order $block */
+/** @var Yireo_GoogleTagManager_Block_Order $this */
 
 if ($this->isEnabled()) {
     $order = $this->getOrder();
@@ -16,7 +16,7 @@ if ($this->isEnabled()) {
         $this->addAttribute('transactionEntity', 'ORDER');
         $this->addAttribute('transactionId', $order->getIncrementId());
         $this->addAttribute('transactionDate', $order->getCreatedAt());
-        $this->addAttribute('transactionAffiliation', $this->quoteEscape(Mage::app()->getWebsite()->getName()));
+        $this->addAttribute('transactionAffiliation', $this->quoteEscape($this->getWebsiteName()));
         $this->addAttribute('transactionTotal', (float)$order->getGrandTotal());
         $this->addAttribute('transactionSubtotal', (float)$order->getSubtotal());
         $this->addAttribute('transactionTax', $order->getGrandTotal() - $order->getShippingAmount() - $order->getSubtotal());
