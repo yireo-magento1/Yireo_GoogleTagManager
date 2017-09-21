@@ -100,4 +100,12 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
     {   
         return json_encode($this->getItemsAsArray());
     }
+
+    /**
+     * @return string
+     */
+    public function getWebsiteName()
+    {
+        return Mage::app()->getWebsite()->getName();
+    }
 }
