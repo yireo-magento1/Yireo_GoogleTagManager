@@ -1,6 +1,6 @@
 <?php
 /**
- * GoogleTagManager plugin for Magento 
+ * GoogleTagManager plugin for Magento
  *
  * @package     Yireo_GoogleTagManager
  * @author      Yireo (https://www.yireo.com/)
@@ -17,7 +17,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
      * @var $taxHelper Mage_Tax_Helper_Data
      */
     protected $taxHelper;
-    
+
     /**
      * Constructor
      */
@@ -41,7 +41,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         $quote = Mage::getModel('checkout/cart')->getQuote();
         return $quote;
     }
-    
+
     /**
      * Return all quote items as array
      *
@@ -57,8 +57,9 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         }
 
         $data = array();
-        foreach($quote->getAllVisibleItems() as $item) { /* Changed from getAllItems to ignore configurable / simple duplicate products */
-            /** @var Mage_Sales_Model_Quote_Item $item */
+
+        /** @var Mage_Sales_Model_Quote_Item $item */
+        foreach ($quote->getAllVisibleItems() as $item) {
 
             $product = $item->getProduct();
 
@@ -73,6 +74,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
             if (($specialPrice > 0) && ($specialPrice < $price)) {
                 $price = $specialPrice;
             }
+            
             $tax = ($price / (100 + $taxpercent)) * $taxpercent;
 
             $data[] = array(
@@ -98,7 +100,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
      * @return string
      */
     public function getItemsAsJson()
-    {   
+    {
         return json_encode($this->getItemsAsArray());
     }
 
