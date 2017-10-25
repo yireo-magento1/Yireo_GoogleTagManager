@@ -14,11 +14,11 @@
 class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_Default
 {
     /**
-     * @return int
+     * @return string
      */
     public function getLastOrderId()
     {
-        $lastOrderId = (int)Mage::getSingleton('checkout/session')->getLastRealOrderId();
+        $lastOrderId = (string) Mage::getSingleton('checkout/session')->getLastRealOrderId();
         return $lastOrderId;
     }
 
