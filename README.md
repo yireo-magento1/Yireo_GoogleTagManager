@@ -20,9 +20,11 @@ once you're done.
 
 3) Use modman to install the git repository for you:
 
-    modman init
-    modman clone https://github.com/yireo/Yireo_GoogleTagManager
-    modman update Yireo_GoogleTagManager
+```
+modman init
+modman clone https://github.com/yireo/Yireo_GoogleTagManager
+modman update Yireo_GoogleTagManager
+```
 
 4) Using composer
 
