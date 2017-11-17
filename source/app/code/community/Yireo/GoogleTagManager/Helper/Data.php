@@ -92,4 +92,45 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $value;
     }
+
+    public function getProductPrice($product)
+    {
+        if($product->getFinalPrice()) {
+            return $product->getFormatedPrice();
+        } else if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
+            $optionCol= $product->getTypeInstance(true)
+                ->getOptionsCollection($product);
+            $selectionCol= $product->getTypeInstance(true)
+                ->getSelectionsCollection(
+                    $product->getTypeInstance(true)->getOptionsIds($product),
+                    $product
+                );
+            $optionCol->appendSelections($selectionCol);
+            $price = $product->getPrice();
+
+            foreach ($optionCol as $option) {
+                if($option->required) {
+                    $selections = $option->getSelections();
+                    $minPrice = min(array_map(function ($s) {
+                        if ($s->specialPrice > 0)
+                        {
+                            $price = $s->specialPrice;
+                        } else
+                        {
+                            $price = $s->price;
+                        }
+                        return $price;
+                    }, $selections));
+                    if($product->getSpecialPrice() > 0) {
+                        $minPrice *= $product->getSpecialPrice()/100;
+                    }
+
+                    $price += round($minPrice,2);
+                }
+            }
+            return  $price;
+        } else {
+            return "";
+        }
+    }
 }

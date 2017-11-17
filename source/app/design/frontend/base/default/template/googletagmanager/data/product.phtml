@@ -56,7 +56,7 @@ if ($this->isEnabled() && $product) {
         $categoryName = (is_object($category)) ? $this->quoteEscape($category->getName()) : null;
 
         $detail = array();
-        
+
         if (!empty($categoryName)) {
             $detail['actionField'] = array('list' => $categoryName);
         }
@@ -65,7 +65,7 @@ if ($this->isEnabled() && $product) {
             'id' => $product->getId(),
             'name' => $this->quoteEscape($product->getName()),
             'sku' => $product->getSku(),
-            'price' => $product->getPrice(),
+            'price' => number_format($this->getModuleHelper()->getProductPrice($product), 2),
             'priceexcludingtax' => number_format($price - $tax, 2),
             'tax' => number_format($tax, 2),
             'taxrate' => $taxpercent,
@@ -74,7 +74,7 @@ if ($this->isEnabled() && $product) {
             'category' => $categoryName,
             'children' => $children,
         );
-        
+
         $detail['products'] = array($productData);
 
         $this->getScriptHelper()->addEcommerceData('detail', $detail);
