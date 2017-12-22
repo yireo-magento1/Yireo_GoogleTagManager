@@ -5,7 +5,7 @@ More information: https://www.yireo.com/software/magento-extensions/google-tag-m
 
 ## Requirements
 
-1) PHP > 5.4
+1) PHP > 7
 2) Magento > 1.6
 
 ## Installation
