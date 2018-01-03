@@ -96,7 +96,7 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
     public function getProductPrice($product)
     {
         if($product->getFinalPrice()) {
-            return $product->getFormatedPrice();
+            return $product->getFinalPrice();
         } else if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
             $optionCol= $product->getTypeInstance(true)
                 ->getOptionsCollection($product);
