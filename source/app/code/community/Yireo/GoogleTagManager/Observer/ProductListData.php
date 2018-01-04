@@ -196,6 +196,6 @@ class Yireo_GoogleTagManager_Observer_ProductListData
      */
     protected function formatPrice($price)
     {
-        return money_format($price, 2);
+        return number_format($price, 2);
     }
 }
