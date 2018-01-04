@@ -55,7 +55,6 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
         /** @var Mage_Sales_Model_Order_Item $item */
         foreach ($order->getAllVisibleItems() as $item) {
 
-
             // Only add composed types once
             if ($item->getParentItemId()) {
                 continue;
@@ -80,7 +79,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
                 'id' => $product->getId(),
                 'sku' => $this->quoteEscape($item->getSku()),
                 'name' => $this->quoteEscape($item->getName()),
-                'price' => $price,
+                'price' => $this->formatPrice($price),
                 'priceexcludingtax' => number_format($price - $tax, 2),
                 'tax' => number_format($tax, 2),
                 'taxrate' => $taxpercent,

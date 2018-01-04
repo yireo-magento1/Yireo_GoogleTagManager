@@ -122,7 +122,7 @@ class Yireo_GoogleTagManager_Observer_ProductListData
         $data['id'] = $product->getId();
         $data['name'] = $this->quoteEscape($product->getName());
         $data['sku'] = $this->quoteEscape($product->getSku());
-        $data['price'] = $price;
+        $data['price'] = $this->formatPrice($price);
         $data['priceexcludingtax'] = number_format($price - $tax, 2);
         $data['tax'] = number_format($tax, 2);
         $data['taxrate'] = $taxPercentage;
@@ -188,5 +188,14 @@ class Yireo_GoogleTagManager_Observer_ProductListData
     protected function quoteEscape($string)
     {
         return Mage::helper('core')->quoteEscape($string);
+    }
+
+    /**
+     * @param string $price
+     * @return string
+     */
+    protected function formatPrice($price)
+    {
+        return money_format($price, 2);
     }
 }

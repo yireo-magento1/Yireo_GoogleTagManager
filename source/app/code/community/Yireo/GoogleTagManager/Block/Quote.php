@@ -81,7 +81,7 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
                 'id' => $product->getId(),
                 'sku' => $this->quoteEscape($product->getSku()),
                 'name' => $this->quoteEscape($product->getName()),
-                'price' => $price,
+                'price' => $this->formatPrice($price),
                 'priceexcludingtax' => number_format($price - $tax, 2),
                 'tax' => number_format($tax, 2),
                 'taxrate' => $taxpercent,
