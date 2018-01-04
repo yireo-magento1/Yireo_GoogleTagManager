@@ -200,9 +200,9 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      * @param string $price
      * @return string
      */
-    protected function formatPrice($price)
+    public function formatPrice($price)
     {
-        return number_format($price, 2);
+        return number_format((float) $price, 2);
     }
 
     /**
