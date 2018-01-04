@@ -29,7 +29,15 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        return (bool)$this->getConfigValue('active', false);
+        if (!(bool)$this->getConfigValue('active', false)) {
+            return false;
+        }
+
+        if (!$this->getId()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
