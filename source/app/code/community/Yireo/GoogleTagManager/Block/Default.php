@@ -218,4 +218,19 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
 
         return $html;
     }
+
+    /**
+     * Return current page contains
+     * * checkout
+     * * onestepcheckout
+     *
+     * @return bool
+     */
+    public function isCheckoutPage()
+    {
+        if (stripos($this->request->getControllerModule(), 'checkout') !== false ) {
+            return true;
+        }
+        return false;
+    }
 }

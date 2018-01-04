@@ -15,7 +15,11 @@ class Yireo_GoogleTagManager_Block_Ecommerce extends Yireo_GoogleTagManager_Bloc
 {
     public function getEcommerceData()
     {
-        $data = $this->getScriptHelper()->getEcommerceData();
-        return $data;
+        return $this->getScriptHelper()->getEcommerceData();
+    }
+
+    public function getEcommerceEvent()
+    {
+        return $this->getScriptHelper()->getEcommerceEvent();
     }
 }
