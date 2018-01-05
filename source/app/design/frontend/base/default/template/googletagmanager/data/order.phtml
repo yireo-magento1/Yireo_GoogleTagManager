@@ -14,16 +14,31 @@ if ($this->isEnabled()) {
     $order = $this->getOrder();
     if (!empty($order) && $order->getId() > 0) {
         $this->addAttribute('transactionEntity', 'ORDER');
-        $this->addAttribute('transactionId', $order->getIncrementId());
+        $this->addAttribute('transactionId', $transactionId = $order->getIncrementId());
         $this->addAttribute('transactionDate', $order->getCreatedAt());
-        $this->addAttribute('transactionAffiliation', $this->quoteEscape($this->getWebsiteName()));
-        $this->addAttribute('transactionTotal', (float)$order->getGrandTotal());
+        $this->addAttribute('transactionAffiliation', $transactionAffiliation = $this->quoteEscape($this->getWebsiteName()));
+        $this->addAttribute('transactionTotal', $transactionTotal = (float)$order->getGrandTotal());
         $this->addAttribute('transactionSubtotal', (float)$order->getSubtotal());
-        $this->addAttribute('transactionTax', $order->getGrandTotal() - $order->getShippingAmount() - $order->getSubtotal());
-        $this->addAttribute('transactionShipping', (float)$order->getShippingAmount());
+        $this->addAttribute('transactionTax', $transactionTax = $order->getGrandTotal() - $order->getShippingAmount() - $order->getSubtotal());
+        $this->addAttribute('transactionShipping', $transactionShipping = (float)$order->getShippingAmount());
         $this->addAttribute('transactionPayment', $this->quoteEscape($order->getPayment()->getMethodInstance()->getTitle()));
         $this->addAttribute('transactionCurrency', $this->getCurrencyCode());
-        $this->addAttribute('transactionPromoCode', $this->quoteEscape($order->getCouponCode()));
-        $this->addAttribute('transactionProducts', $this->getItems());
+        $this->addAttribute('transactionPromoCode', $transactionPromoCode = $this->quoteEscape($order->getCouponCode()));
+        $this->addAttribute('transactionProducts', $transactionProducts = $this->getItems());
+
+        $purchase = array();
+
+        $purchase['actionField'] = array(
+            'id' => $transactionId,
+            'affiliation' => $transactionAffiliation,
+            'revenue' => $transactionTotal,
+            'tax' => $transactionTax,
+            'shipping' => $transactionShipping,
+            'coupon' => $transactionPromoCode,
+        );
+
+        $purchase['products'] = $transactionProducts;
+
+        $this->getScriptHelper()->addEcommerceData('purchase', $purchase);
     }
 }
