@@ -8,7 +8,12 @@
  * @license     Open Software License
  */
 
-/** @var Yireo_GoogleTagManager_Block_Ecommerce $block */
-$data = $this->getEcommerceData();
+/** @var Yireo_GoogleTagManager_Block_Ecommerce $this */
+
+$toPush = array();
+if( $event = $this->getEcommerceEvent() ){
+    $toPush['event'] = $event;
+}
+$toPush['ecommerce'] = $this->getEcommerceData();
 ?>
-dataLayer.push({'ecommerce': <?php echo json_encode($data); ?>});
+dataLayer.push(<?php echo json_encode($toPush); ?>);

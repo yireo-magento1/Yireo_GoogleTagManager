@@ -197,6 +197,15 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
     }
 
     /**
+     * @param string $price
+     * @return string
+     */
+    public function formatPrice($price)
+    {
+        return number_format((float) $price, 2);
+    }
+
+    /**
      * @return string
      */
     public function _toHtml()
@@ -208,5 +217,20 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
         }
 
         return $html;
+    }
+
+    /**
+     * Return current page contains
+     * * checkout
+     * * onestepcheckout
+     *
+     * @return bool
+     */
+    public function isCheckoutPage()
+    {
+        if (stripos($this->request->getControllerModule(), 'checkout') !== false ) {
+            return true;
+        }
+        return false;
     }
 }

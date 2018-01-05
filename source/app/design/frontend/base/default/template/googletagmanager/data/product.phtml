@@ -8,7 +8,7 @@
  * @license     Open Software License
  */
 
-/** @var Yireo_GoogleTagManager_Block_Product $block */
+/** @var Yireo_GoogleTagManager_Block_Product $this */
 /** @var Mage_Catalog_Model_Product $product */
 $product = $this->getProduct();
 
@@ -33,9 +33,9 @@ if ($this->isEnabled() && $product) {
         $this->addAttribute('productId', $product->getId());
         $this->addAttribute('productName', $this->quoteEscape($product->getName()));
         $this->addAttribute('productSku', $this->quoteEscape($product->getSku()));
-        $this->addAttribute('productPrice', number_format($price, 2));
-        $this->addAttribute('productPriceExcludingTax', number_format($price - $tax, 2));
-        $this->addAttribute('productTax', number_format($tax, 2));
+        $this->addAttribute('productPrice', $this->formatPrice($price));
+        $this->addAttribute('productPriceExcludingTax', $this->formatPrice($price - $tax));
+        $this->addAttribute('productTax', $this->formatPrice($tax));
         $this->addAttribute('productTaxRate', $taxpercent);
         $this->addAttribute('productGender', $gender);
         $children = array();
@@ -45,7 +45,7 @@ if ($this->isEnabled() && $product) {
             foreach ($childProducts as $childProduct) {
                 $child['name'] = $childProduct->getName();
                 $child['id'] = $childProduct->getId();
-                $child['price'] = number_format($price, 2);
+                $child['price'] = $this->formatPrice($price);
                 $child['sku'] = $childProduct->getSku();
                 array_push($children, $child);
             }
@@ -65,9 +65,9 @@ if ($this->isEnabled() && $product) {
             'id' => $product->getId(),
             'name' => $this->quoteEscape($product->getName()),
             'sku' => $product->getSku(),
-            'price' => number_format($this->getModuleHelper()->getProductPrice($product), 2),
-            'priceexcludingtax' => number_format($price - $tax, 2),
-            'tax' => number_format($tax, 2),
+            'price' => $this->formatPrice($this->getModuleHelper()->getProductPrice($product)),
+            'priceexcludingtax' => $this->formatPrice($price - $tax),
+            'tax' => $this->formatPrice($tax),
             'taxrate' => $taxpercent,
             'brand' => $this->quoteEscape($product->getAttributeText('manufacturer')),
             'gender' => $gender,

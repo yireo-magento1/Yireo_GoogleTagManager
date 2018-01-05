@@ -14,9 +14,11 @@
  * <?php echo $gtm->onAddToCart($_product); ?>
  */
 
-/** @var Yireo_GoogleTagManager_Block_Product $block */
-/** @var Mage_Catalog_Model_Product $product */
+if ( !$this->isEnabled() ) {
+    return;
+}
 
+/** @var Mage_Catalog_Model_Product $product */
 $product = $this->getProduct();
 $data = array(
     'event' => 'addToCart',

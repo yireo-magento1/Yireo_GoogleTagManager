@@ -17,6 +17,12 @@ class Yireo_GoogleTagManager_Helper_Script extends Mage_Core_Helper_Abstract
      * Ecommerce data
      */
     protected $ecommerceData = array();
+    
+    /**
+     * Enhanced Ecommerce Event Name
+     * @var string|null
+     */
+    protected $ecommerceEvent = null;
 
     /**
      * @var Yireo_GoogleTagManager_Helper_Data
@@ -95,7 +101,7 @@ class Yireo_GoogleTagManager_Helper_Script extends Mage_Core_Helper_Abstract
      */
     public function onClickProduct($product, $addJsEvent = true)
     {
-        $block = $this->fetchBlock('custom', 'custom', 'product_click.phtml');
+        $block = $this->fetchBlock('product_click', 'custom', 'product_click.phtml');
         $html = '';
 
         if ($block) {
@@ -118,7 +124,7 @@ class Yireo_GoogleTagManager_Helper_Script extends Mage_Core_Helper_Abstract
      */
     public function onAddToCart($product, $addJsEvent = true)
     {
-        $block = $this->fetchBlock('custom', 'custom', 'product_addtocart.phtml');
+        $block = $this->fetchBlock('product_addtocart', 'custom', 'product_addtocart.phtml');
         $html = '';
 
         if ($block) {
@@ -141,7 +147,7 @@ class Yireo_GoogleTagManager_Helper_Script extends Mage_Core_Helper_Abstract
      */
     public function onRemoveFromCart($product, $addJsEvent = true)
     {
-        $block = $this->fetchBlock('custom', 'custom', 'product_removefromcart.phtml');
+        $block = $this->fetchBlock('product_removefromcart', 'custom', 'product_removefromcart.phtml');
         $html = '';
 
         if ($block) {
@@ -164,5 +170,21 @@ class Yireo_GoogleTagManager_Helper_Script extends Mage_Core_Helper_Abstract
     public function getCurrencyCode()
     {
         return Mage::app()->getStore()->getCurrentCurrencyCode();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEcommerceEvent()
+    {
+        return $this->ecommerceEvent;
+    }
+
+    /**
+     * @param null|string $ecommerceEvent
+     */
+    public function setEcommerceEvent($ecommerceEvent=null)
+    {
+        $this->ecommerceEvent = $ecommerceEvent;
     }
 }

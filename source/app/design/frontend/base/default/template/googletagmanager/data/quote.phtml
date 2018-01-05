@@ -21,6 +21,16 @@ if($this->isEnabled() && $quote) {
         $this->addAttribute('transactionAffiliation', $this->quoteEscape($this->getWebsiteName()));
         $this->addAttribute('transactionTotal', (float)$quote->getGrandTotal()); 
         $this->addAttribute('transactionTax', $quote->getGrandTotal() - $quote->getShippingAmount() - $quote->getSubtotal()); 
-        $this->addAttribute('transactionProducts', $this->getItemsAsArray());
+        $this->addAttribute('transactionProducts', $transactionProducts = $this->getItemsAsArray());
+
+        if($this->isCheckoutPage()){
+            $checkout = array(
+                'actionField' => array( 'step' => 1 ),
+                'products' => $transactionProducts
+            );
+
+            $this->getScriptHelper()->setEcommerceEvent('checkout');
+            $this->getScriptHelper()->addEcommerceData('checkout', $checkout);
+        }
     } 
 } 
