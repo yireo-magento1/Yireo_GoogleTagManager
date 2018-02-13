@@ -69,7 +69,7 @@ if ($this->isEnabled() && $product) {
             'priceexcludingtax' => $this->formatPrice($price - $tax),
             'tax' => $this->formatPrice($tax),
             'taxrate' => $taxpercent,
-            'brand' => $this->quoteEscape($product->getAttributeText('manufacturer')),
+            'brand' => $this->quoteEscape($this->getProductAttributeText($product, 'manufacturer')),
             'gender' => $gender,
             'category' => $categoryName,
             'children' => $children,

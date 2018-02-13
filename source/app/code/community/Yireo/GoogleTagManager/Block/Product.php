@@ -21,4 +21,13 @@ class Yireo_GoogleTagManager_Block_Product extends Yireo_GoogleTagManager_Block_
         $currentProduct = Mage::registry('current_product');
         return $currentProduct;
     }
+
+    public function getProductAttributeText(Mage_Catalog_Model_Product $product, $attributeCode)
+    {
+        if (!$product->getData($attributeCode)) {
+            return '';
+        }
+
+        return $product->getAttributeText($attributeCode);
+    }
 }
