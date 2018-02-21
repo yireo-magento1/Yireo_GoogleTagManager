@@ -24,11 +24,12 @@ $data = array(
     'event' => 'addToCart',
     'ecommerce' => array(
         'currencyCode' => $this->getScriptHelper()->getCurrencyCode(),
-        'click' => array(
+        'add' => array(
             'products' => array(
                 array(
-                    'name' => $this->quoteEscape($product->getName()),
+                    'name' => $this->quoteEscape(str_replace("'","", $product->getName())),
                     'id' => $product->getId(),
+                    'price' => $this->formatPrice($product->getPrice()),
                     'quantity' => 1,
                 )
             )

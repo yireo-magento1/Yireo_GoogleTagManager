@@ -161,6 +161,26 @@ class Yireo_GoogleTagManager_Helper_Script extends Mage_Core_Helper_Abstract
 
         return $html;
     }
+    
+    /**
+     * @param $product
+     * @param bool $addJsEvent
+     *
+     * @return string
+     */
+    public function onRemoveAll($product, $addJsEvent = true)
+    {
+        $block = $this->fetchBlock('product_removeall', 'custom', 'product_removeall.phtml');
+        $html = '';
+        if ($block) {
+            $block->setProduct($product);
+            $html = $block->toHtml();
+        }
+        if ($addJsEvent && !empty($html)) {
+            $html = 'onclick="' . $html . '"';
+        }
+        return $html;
+    }
 
     /**
      * Return the current currency code
