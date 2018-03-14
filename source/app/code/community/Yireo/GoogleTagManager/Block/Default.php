@@ -233,4 +233,20 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
         }
         return false;
     }
+
+    /**
+     * Get the environment parameters
+     *
+     * @return string
+     */
+    public function getEnvironment()
+    {
+        $environment = '';
+        if ($this->getModuleHelper()->getIsEnvironmentEnabled()) {
+            $auth = $this->getModuleHelper()->getEnvironmentAuth();
+            $preview = $this->getModuleHelper()->getEnvironmentPreview();
+            $environment = sprintf('&gtm_auth=%s&gtm_preview=%s&gtm_cookies_win=x', $auth, $preview);
+        }
+        return $environment;
+    }
 }

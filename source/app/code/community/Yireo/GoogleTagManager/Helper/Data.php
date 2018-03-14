@@ -141,4 +141,34 @@ class Yireo_GoogleTagManager_Helper_Data extends Mage_Core_Helper_Abstract
             return "";
         }
     }
+
+    /**
+     * Returns whether environments is enabled
+     *
+     * @return bool
+     */
+    public function getIsEnvironmentEnabled()
+    {
+        return (bool) $this->getConfigValue('environment_active');
+    }
+
+    /**
+     * Get the auth value
+     *
+     * @return string|null
+     */
+    public function getEnvironmentAuth()
+    {
+        return $this->getConfigValue('auth');
+    }
+
+    /**
+     * Get the preview value
+     *
+     * @return string|null
+     */
+    public function getEnvironmentPreview()
+    {
+        return $this->getConfigValue('preview');
+    }
 }

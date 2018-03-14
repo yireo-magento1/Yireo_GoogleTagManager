@@ -62,6 +62,34 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </debug>
+                        <environment_active translate="label">
+                            <label>Enable Environments</label>
+                            <comment>Includes the value of the GTM Auth and GTM Preview fields when loading in Google Tag Manager to allow Environments to be used in Google Tag Manager.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </environment_active>
+                        <auth translate="label">
+                            <label>GTM Auth</label>
+                            <comment>Populates the gtm_auth parameter. Only visible when "Enable Environments" is set to "Yes".</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auth>
+                        <preview translate="label">
+                            <label>GTM Preview</label>
+                            <comment>Populates the gtm_preview parameter. Only visible when "Enable Environments" is set to "Yes".</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </preview>
                     </fields>
                 </settings>
             </groups>
