@@ -105,16 +105,19 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
         foreach ($product->getCategoryIds() as $categoryId) {
             $category = $allCategories[$categoryId];
             $categoryPath = [];
-            foreach ($category['path'] as $pathId) {
-                if ($pathId == 1) {
-                    continue;
-                }
+            
+            if(isset($category['path'])){
+                foreach ($category['path'] as $pathId) {
+                    if ($pathId == 1) {
+                        continue;
+                    }
 
-                if ($pathId === Mage::app()->getStore()->getRootCategoryId()) {
-                    continue;
-                }
+                    if ($pathId === Mage::app()->getStore()->getRootCategoryId()) {
+                        continue;
+                    }
 
-                $categoryPath[] = $allCategories[$pathId]['name'];
+                    $categoryPath[] = $allCategories[$pathId]['name'];
+                }
             }
 
             $categoryPaths[] = implode($categorySeparator, $categoryPath);
