@@ -32,3 +32,19 @@
         </block>
     </default>
 </layout>
+<!--
+If you don't want the order-data to be present on all pages, after an order has been placed, copy the following to your local file:
+
+<layout>
+    <default>
+        <reference name="googletagmanager_data">
+            <remove name="googletagmanager_order"/>
+        </reference>
+    </default>
+    <checkout_onepage_success>
+        <block type="googletagmanager/data" name="googletagmanager_data" template="googletagmanager/data.phtml">
+            <block type="googletagmanager/order" name="googletagmanager_order" template="googletagmanager/data/order.phtml"/>
+        </block>
+    </checkout_onepage_success>
+</layout>
+-->
