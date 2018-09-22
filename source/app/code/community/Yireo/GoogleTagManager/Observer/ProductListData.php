@@ -141,8 +141,8 @@ class Yireo_GoogleTagManager_Observer_ProductListData
         $data['name'] = $this->quoteEscape($product->getName());
         $data['sku'] = $this->quoteEscape($product->getSku());
         $data['price'] = $this->formatPrice($price);
-        $data['priceexcludingtax'] = number_format($price - $tax, 2);
-        $data['tax'] = number_format($tax, 2);
+        $data['priceexcludingtax'] = $this->formatPrice($price - $tax);
+        $data['tax'] = $this->formatPrice($tax);
         $data['taxrate'] = $taxPercentage;
         $data['gender'] = $this->getGender($product);
 
@@ -216,6 +216,7 @@ class Yireo_GoogleTagManager_Observer_ProductListData
      */
     protected function formatPrice($price)
     {
-        return number_format($price, 2);
+        return number_format((float) $price, 2, '.', '');
+
     }
 }

@@ -202,7 +202,7 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      */
     public function formatPrice($price)
     {
-        return number_format((float) $price, 2);
+        return number_format((float) $price, 2, '.', '');
     }
 
     /**
