@@ -68,11 +68,8 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
             $taxClassId = $product->getTaxClassId();
             $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
 
-            $price = $product->getPrice();
-            $specialPrice = $product->getSpecialprice();
-            if (($specialPrice > 0) && ($specialPrice < $price)) {
-                $price = $specialPrice;
-            }
+            $price = $item->getPrice();
+            
             $tax = ($price / (100 + $taxpercent)) * $taxpercent;
 
             $data[] = array(
