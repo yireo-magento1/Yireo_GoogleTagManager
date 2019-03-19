@@ -45,7 +45,11 @@ if ($this->isEnabled() && $product) {
             foreach ($childProducts as $childProduct) {
                 $child['name'] = $childProduct->getName();
                 $child['id'] = $childProduct->getId();
-                $child['price'] = $this->formatPrice($price);
+                if ($this->formatPrice($this->getModuleHelper()->getProductPrice($childProduct))) {
+                    $child['price'] = $this->formatPrice($this->getModuleHelper()->getProductPrice($childProduct));
+                } else {
+                   $child['price'] = $this->formatPrice($price);
+                }
                 $child['sku'] = $childProduct->getSku();
                 array_push($children, $child);
             }
