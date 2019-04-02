@@ -162,7 +162,7 @@ class Yireo_GoogleTagManager_Observer_ProductListData
      */
     protected function getPrice(Mage_Catalog_Model_Product $product)
     {
-        $price = $product->getPrice();
+        $price = $product->getFinalPrice() ? $product->getFinalPrice() : $product->getPrice();
         $specialPrice = $product->getSpecialprice();
 
         if (($specialPrice > 0) && ($specialPrice < $price)) {
