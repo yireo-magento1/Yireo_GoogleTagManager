@@ -134,14 +134,15 @@ class Yireo_GoogleTagManager_Observer_ProductListData
     {
         $price = $this->getPrice($product);
         $taxPercentage = $this->getTaxPercentage($product);
-        $tax = ($price / (100 + $taxPercentage)) * $taxPercentage;
+        $priceInclTax = $price * ((100 + $taxPercentage) / 100);
+        $tax = $priceInclTax - $price;
 
         $data = array();
         $data['id'] = $product->getId();
         $data['name'] = $this->quoteEscape($product->getName());
         $data['sku'] = $this->quoteEscape($product->getSku());
-        $data['price'] = $this->formatPrice($price);
-        $data['priceexcludingtax'] = $this->formatPrice($price - $tax);
+        $data['price'] = $this->formatPrice($priceInclTax);
+        $data['priceexcludingtax'] = $this->formatPrice($price);
         $data['tax'] = $this->formatPrice($tax);
         $data['taxrate'] = $taxPercentage;
         $data['gender'] = $this->getGender($product);
