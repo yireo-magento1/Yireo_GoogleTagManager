@@ -59,7 +59,8 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
             $taxClassId = $product->getTaxClassId();
             $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
 
-            $price = $item->getFinalPrice();
+            $price = $item->getFinalPrice() ? $item->getFinalPrice() : $item->getPrice();
+            
             $priceInclTax = $price * ((100 + $taxpercent) / 100);
             $tax = $priceInclTax - $price;
 
