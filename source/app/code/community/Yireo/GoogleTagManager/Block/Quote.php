@@ -7,7 +7,6 @@
  * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
  * @license     Open Source License (OSL v3)
  */
-
 /**
  * Class Yireo_GoogleTagManager_Block_Quote
  */
@@ -17,17 +16,14 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
      * @var $taxHelper Mage_Tax_Helper_Data
      */
     protected $taxHelper;
-
     /**
      * Constructor
      */
     protected function _construct()
     {
         $this->taxHelper = Mage::helper('tax');
-
         parent::_construct();
     }
-
     /**
      * @return Mage_Sales_Model_Quote|null
      */
@@ -37,11 +33,9 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         if (!empty($lastOrderId)) {
             return null;
         }
-
         $quote = Mage::getModel('checkout/cart')->getQuote();
         return $quote;
     }
-
     /**
      * Return all quote items as array
      *
@@ -55,30 +49,27 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
         if (empty($quote)) {
             return array();
         }
-
         $data = array();
-
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($quote->getAllVisibleItems() as $item) {
-
             $product = $item->getProduct();
-
             /** @var Mage_Tax_Model_Calculation $taxCalculation */
             $taxCalculation = Mage::getModel('tax/calculation');
             $request = $taxCalculation->getRateRequest(null, null, null, $store);
             $taxClassId = $product->getTaxClassId();
             $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
 
-            $price = $item->getPrice();
-
-            $tax = ($price / (100 + $taxpercent)) * $taxpercent;
+            $price = $item->getFinalPrice() ? $item->getFinalPrice() : $item->getPrice();
+            
+            $priceInclTax = $price * ((100 + $taxpercent) / 100);
+            $tax = $priceInclTax - $price;
 
             $data[] = array(
                 'id' => $product->getId(),
                 'sku' => $this->quoteEscape($product->getSku()),
                 'name' => $this->quoteEscape($product->getName()),
-                'price' => $this->formatPrice($price),
-                'priceexcludingtax' => $this->formatPrice($price - $tax),
+                'price' => $this->formatPrice($priceInclTax),
+                'priceexcludingtax' => $this->formatPrice($price),
                 'tax' => $this->formatPrice($tax),
                 'taxrate' => $taxpercent,
                 'type' => $item->getProductType(),
@@ -86,10 +77,8 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
                 'quantity' => $item->getQty(),
             );
         }
-
         return $data;
     }
-
     /**
      * Return all quote items as JSON
      *
@@ -99,7 +88,6 @@ class Yireo_GoogleTagManager_Block_Quote extends Yireo_GoogleTagManager_Block_De
     {
         return json_encode($this->getItemsAsArray());
     }
-
     /**
      * @return string
      */
