@@ -41,7 +41,7 @@ if ($this->isEnabled() && $product) {
         $children = array();
         $child = array();
         if ($product->isConfigurable()) {
-            $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$product);
+            $childProducts = $this->getChildProducts($product);
             foreach ($childProducts as $childProduct) {
                 $child['name'] = $childProduct->getName();
                 $child['id'] = $childProduct->getId();

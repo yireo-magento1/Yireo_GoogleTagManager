@@ -33,7 +33,7 @@
     </default>
 </layout>
 <!--
-If you don't want the order-data to be present on all pages, after an order has been placed, copy the following to your local file:
+If you don't want the order-data to be present on all pages, after an order has been placed, copy the following to your local.xml file in your own theme:
 
 <layout>
     <default>

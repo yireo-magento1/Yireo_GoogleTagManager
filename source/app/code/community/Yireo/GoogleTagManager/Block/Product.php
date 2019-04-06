@@ -22,6 +22,11 @@ class Yireo_GoogleTagManager_Block_Product extends Yireo_GoogleTagManager_Block_
         return $currentProduct;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @param $attributeCode
+     * @return string
+     */
     public function getProductAttributeText(Mage_Catalog_Model_Product $product, $attributeCode)
     {
         if (!$product->getData($attributeCode)) {
@@ -29,5 +34,17 @@ class Yireo_GoogleTagManager_Block_Product extends Yireo_GoogleTagManager_Block_
         }
 
         return $product->getAttributeText($attributeCode);
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return mixed
+     */
+    public function getChildProducts(Mage_Catalog_Model_Product $product)
+    {
+        $collection = Mage::getModel('catalog/product_type_configurable')->getUsedProductCollection($product);
+        $collection->addAttributeToSelect(['name', 'price']);
+
+        return $collection;
     }
 }
