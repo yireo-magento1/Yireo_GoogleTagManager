@@ -15,7 +15,7 @@
     <?php $childHtml = $this->getChildHtml(); ?>
     <?php $this->addAttribute('pageType', $this->getPageType()); ?>
         <?php if($this->hasAttributes()) : ?>
-        var dataLayer = [(<?= $this->getAttributesAsJson(); ?>)];
+        var dataLayer = [<?= $this->getAttributesAsJson(); ?>];
         <?php endif; ?>
         <?php echo $childHtml; ?>
 <?php endif; ?>
