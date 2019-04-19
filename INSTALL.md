@@ -1,9 +1,9 @@
-## Requirements
+# Requirements
 
 1) PHP > 7
 2) Magento > 1.6
 
-## Installation
+# Installation
 You can install this module in various ways:
 
 1) Download the MagentoConnect package from our site and upload it into your own Magento
@@ -23,7 +23,7 @@ modman update Yireo_GoogleTagManager
 
 4) Using composer (recommended - see below)
 
-## Instructions for using composer
+# Instructions for using composer
 
 Use composer to install this extension. Before you can do this under Magento 1, you need to install the composer installer first:
 
