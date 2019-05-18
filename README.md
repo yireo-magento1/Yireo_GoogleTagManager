@@ -5,6 +5,7 @@ Note that the End-of-Life of Magento 1 is approaching and after that time, this 
 
 # See also
 - [Notes](NOTES.md)
+- [Changelog](CHANGELOG.md)
 - [Installation](INSTALL.md)
 - [Usage](USAGE.md)
 - [FAQ](FAQ.md)
