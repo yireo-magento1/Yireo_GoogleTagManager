@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix pricing of child products of Configurable Products
 - Refactoring of all price-related data
 - Remove empty values from dataLayer
+- formatPrice method signature uses only 1 parameter [@Lex50]
 
 ### Added
 - Add child products to data of Grouped Product
