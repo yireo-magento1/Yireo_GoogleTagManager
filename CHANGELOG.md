@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.6.0] - 2019-05-18
 ### Fixed
 - Fix product pricing with incl, excl and tax
 - Fix pricing of child products of Configurable Products
@@ -16,5 +18,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a debugger to footer while debugging
 - Implement KeepAChangeLog
 
-## [1.0.0] - 2019-02-26
-### Added
