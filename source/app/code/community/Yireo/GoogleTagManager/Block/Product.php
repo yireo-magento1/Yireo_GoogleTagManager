@@ -23,6 +23,25 @@ class Yireo_GoogleTagManager_Block_Product extends Yireo_GoogleTagManager_Block_
     }
 
     /**
+     * @return Yireo_GoogleTagManager_Model_Product_Price
+     */
+    public function getPriceModel()
+    {
+        /** @var Yireo_GoogleTagManager_Model_Product_Price $priceModel */
+        $priceModel = Mage::getModel('googletagmanager/product_price');
+        return $priceModel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGender()
+    {
+        $resourceEavAttributeModel = Mage::getModel('catalog/resource_eav_attribute');
+        return (string) $resourceEavAttributeModel->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'gender')->getSource()->getOptionText($this->getProduct()->getGender());
+    }
+
+    /**
      * @param Mage_Catalog_Model_Product $product
      * @param $attributeCode
      * @return string
@@ -38,13 +57,56 @@ class Yireo_GoogleTagManager_Block_Product extends Yireo_GoogleTagManager_Block_
 
     /**
      * @param Mage_Catalog_Model_Product $product
-     * @return mixed
+     * @return array
      */
     public function getChildProducts(Mage_Catalog_Model_Product $product)
+    {
+        if ($product->isConfigurable()) {
+            return $this->getChildProductsFromConfigurable($product);
+        }
+
+        if ($product->isGrouped()) {
+            return $this->getChildProductsFromGrouped($product);
+        }
+
+        return [];
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return mixed
+     */
+    public function getChildProductsFromConfigurable(Mage_Catalog_Model_Product $product)
     {
         $collection = Mage::getModel('catalog/product_type_configurable')->getUsedProductCollection($product);
         $collection->addAttributeToSelect(['name', 'price']);
 
         return $collection;
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return mixed
+     */
+    public function getChildProductsFromGrouped(Mage_Catalog_Model_Product $product)
+    {
+        $collection = Mage::getModel('catalog/product_type_grouped')->getAssociatedProducts($product);
+
+        return $collection;
+    }
+
+    /**
+     * @param $array
+     * @return mixed
+     */
+    public function cleanData($array)
+    {
+        foreach ($array as $name => $value) {
+            if (empty($value)) {
+                unset($array[$name]);
+            }
+        }
+
+        return $array;
     }
 }

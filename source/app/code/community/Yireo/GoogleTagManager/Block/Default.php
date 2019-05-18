@@ -167,10 +167,14 @@ class Yireo_GoogleTagManager_Block_Default extends Mage_Core_Block_Template
      * @param $name
      * @param $value
      *
-     * @return Varien_Object
+     * @return Varien_Object|false
      */
     public function addAttribute($name, $value)
     {
+        if (empty($value)) {
+            return false;
+        }
+
         return $this->getContainer()->setData($name, $value);
     }
 

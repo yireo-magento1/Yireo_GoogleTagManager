@@ -30,6 +30,10 @@
             <block type="googletagmanager/custom" name="googletagmanager_custom" template="googletagmanager/data/custom.phtml"/>
             <block type="googletagmanager/ecommerce" name="googletagmanager_ecommerce" template="googletagmanager/data/ecommerce.phtml"/>
         </block>
+
+        <reference name="before_body_end" before="-">
+            <block type="core/template" name="googletagmanager_footer" template="googletagmanager/footer.phtml"/>
+        </reference>
     </default>
 </layout>
 <!--

@@ -12,75 +12,61 @@
 /** @var Mage_Catalog_Model_Product $product */
 $product = $this->getProduct();
 
-if ($this->isEnabled() && $product) {
-
-    $store = $this->getStore();
-    $taxCalculation = Mage::getModel('tax/calculation');
-    $request = $taxCalculation->getRateRequest(null, null, null, $store);
-    $taxClassId = $product->getTaxClassId();
-    $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
-
-    if (!empty($product) && $product->getId() > 0) {
-
-        $price = $product->getPrice();
-        $specialPrice = $product->getSpecialprice();
-        if (($specialPrice > 0) && ($specialPrice < $price)) {
-            $price = $specialPrice;
-        }
-        $tax = ($price / (100 + $taxpercent)) * $taxpercent;
-        $gender = Mage::getModel('catalog/resource_eav_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'gender')->getSource()->getOptionText($product->getGender());
-
-        $this->addAttribute('productId', $product->getId());
-        $this->addAttribute('productName', $this->quoteEscape($product->getName()));
-        $this->addAttribute('productSku', $this->quoteEscape($product->getSku()));
-        $this->addAttribute('productPrice', $this->formatPrice($price + $tax));
-        $this->addAttribute('productPriceExcludingTax', $this->formatPrice($price));
-        $this->addAttribute('productTax', $this->formatPrice($tax));
-        $this->addAttribute('productTaxRate', $taxpercent);
-        $this->addAttribute('productGender', $gender);
-        $children = array();
-        $child = array();
-        if ($product->isConfigurable()) {
-            $childProducts = $this->getChildProducts($product);
-            foreach ($childProducts as $childProduct) {
-                $child['name'] = $childProduct->getName();
-                $child['id'] = $childProduct->getId();
-                if ($this->formatPrice($this->getModuleHelper()->getProductPrice($childProduct))) {
-                    $child['price'] = $this->formatPrice($this->getModuleHelper()->getProductPrice($childProduct));
-                } else {
-                   $child['price'] = $this->formatPrice($price);
-                }
-                $child['sku'] = $childProduct->getSku();
-                array_push($children, $child);
-            }
-            $this->addAttribute('productChildren', $children);
-        }
-
-        $category = $product->getCategory();
-        $categoryName = (is_object($category)) ? $this->quoteEscape($category->getName()) : null;
-
-        $detail = array();
-
-        if (!empty($categoryName)) {
-            $detail['actionField'] = array('list' => $categoryName);
-        }
-
-        $productData = array(
-            'id' => $product->getId(),
-            'name' => $this->quoteEscape($product->getName()),
-            'sku' => $product->getSku(),
-            'price' => $this->formatPrice($this->getModuleHelper()->getProductPrice($product)),
-            'priceexcludingtax' => $this->formatPrice($price - $tax),
-            'tax' => $this->formatPrice($tax),
-            'taxrate' => $taxpercent,
-            'brand' => $this->quoteEscape($this->getProductAttributeText($product, 'manufacturer')),
-            'gender' => $gender,
-            'category' => $categoryName,
-            'children' => $children,
-        );
-
-        $detail['products'] = array($productData);
-
-        $this->getScriptHelper()->addEcommerceData('detail', $detail);
-    }
+if (!$this->isEnabled() || !$product || !$product->getId()) {
+    return '';
 }
+
+$priceModel = $this->getPriceModel()->setProduct($product);
+
+$this->addAttribute('productId', $product->getId());
+$this->addAttribute('productName', $this->quoteEscape($product->getName()));
+$this->addAttribute('productSku', $this->quoteEscape($product->getSku()));
+$this->addAttribute('productPrice', $this->formatPrice($priceModel->getPriceInclTax()));
+$this->addAttribute('productPriceExcludingTax', $this->formatPrice($priceModel->getPriceExclTax()));
+$this->addAttribute('productTax', $this->formatPrice($priceModel->getTax()));
+$this->addAttribute('productTaxRate', $priceModel->getTaxRate());
+$this->addAttribute('productGender', $this->getGender());
+$this->addAttribute('productBrand', $this->quoteEscape($this->getProductAttributeText($product, 'manufacturer')));
+
+$children = array();
+$child = array();
+if ($product->isSuper()) {
+    $childProducts = $this->getChildProducts($product);
+    foreach ($childProducts as $childProduct) {
+        $childPriceModel = $this->getPriceModel()->setProduct($childProduct);
+        $child['name'] = $childProduct->getName();
+        $child['id'] = $childProduct->getId();
+        $child['price'] = $this->formatPrice($childPriceModel->setProduct($childProduct)->getPriceInclTax());
+        $child['priceexcludingtax'] = $this->formatPrice($childPriceModel->setProduct($childProduct)->getPriceExclTax());
+        $child['sku'] = $childProduct->getSku();
+        array_push($children, $child);
+    }
+
+    $this->addAttribute('productChildren', $children);
+}
+
+$category = $product->getCategory();
+$categoryName = (is_object($category)) ? $this->quoteEscape($category->getName()) : '';
+
+$detail = array();
+
+if (!empty($categoryName)) {
+    $detail['actionField'] = array('list' => $categoryName);
+}
+
+$productData = array(
+    'id' => $product->getId(),
+    'name' => $this->quoteEscape($product->getName()),
+    'sku' => $product->getSku(),
+    'price' => $this->formatPrice($priceModel->getPriceInclTax()),
+    'priceexcludingtax' => $this->formatPrice($priceModel->getPriceExclTax()),
+    'tax' => $this->formatPrice($priceModel->getTax()),
+    'taxrate' => $priceModel->getTaxRate(),
+    'brand' => $this->quoteEscape($this->getProductAttributeText($product, 'manufacturer')),
+    'gender' => $this->getGender(),
+    'category' => $categoryName,
+    'children' => $children,
+);
+
+$detail['products'] = array($this->cleanData($productData));
+$this->getScriptHelper()->addEcommerceData('detail', $detail);

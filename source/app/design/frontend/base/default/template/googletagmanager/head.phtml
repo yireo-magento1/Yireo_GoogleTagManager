@@ -18,7 +18,7 @@
             if (i == '') { return console.log('No GTM ID provided'); }
             w[l] = w[l] || [];
             w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-            if (i == 'DEBUG') return console.log(w[l]);
+            if (i == 'DEBUG') return;
             var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
             var environment = '<?= $this->getEnvironment(); ?>';
             j.async = true;
