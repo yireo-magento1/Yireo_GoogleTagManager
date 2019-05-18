@@ -19,3 +19,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a debugger to footer while debugging
 - Implement KeepAChangeLog
 
+## Note on previous releases
+Previous releases are not included in this CHANGELOG but messages can be found in git.
