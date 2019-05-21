@@ -26,6 +26,7 @@ $this->addAttribute('productPriceExcludingTax', $this->formatPrice($priceModel->
 $this->addAttribute('productTax', $this->formatPrice($priceModel->getTax()));
 $this->addAttribute('productTaxRate', $priceModel->getTaxRate());
 $this->addAttribute('productGender', $this->getGender());
+$this->addAttribute('productType', $this->getType());
 $this->addAttribute('productBrand', $this->quoteEscape($this->getProductAttributeText($product, 'manufacturer')));
 
 $children = array();
@@ -33,11 +34,11 @@ $child = array();
 if ($product->isSuper()) {
     $childProducts = $this->getChildProducts($product);
     foreach ($childProducts as $childProduct) {
-        $childPriceModel = $this->getPriceModel()->setProduct($childProduct);
+        $priceModel->setChildProduct($childProduct);
         $child['name'] = $childProduct->getName();
         $child['id'] = $childProduct->getId();
-        $child['price'] = $this->formatPrice($childPriceModel->setProduct($childProduct)->getPriceInclTax());
-        $child['priceexcludingtax'] = $this->formatPrice($childPriceModel->setProduct($childProduct)->getPriceExclTax());
+        $child['price'] = $this->formatPrice($priceModel->getPriceInclTax());
+        $child['priceexcludingtax'] = $this->formatPrice($priceModel->getPriceExclTax());
         $child['sku'] = $childProduct->getSku();
         array_push($children, $child);
     }

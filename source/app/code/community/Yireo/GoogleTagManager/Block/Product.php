@@ -42,6 +42,14 @@ class Yireo_GoogleTagManager_Block_Product extends Yireo_GoogleTagManager_Block_
     }
 
     /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->getProduct()->getTypeId();
+    }
+
+    /**
      * @param Mage_Catalog_Model_Product $product
      * @param $attributeCode
      * @return string
