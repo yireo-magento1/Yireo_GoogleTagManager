@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2019-05-21
+### Fixed
+- Calculated price for Configurable Product options
+
 ## [1.6.0] - 2019-05-18
 ### Fixed
 - Fix product pricing with incl, excl and tax
