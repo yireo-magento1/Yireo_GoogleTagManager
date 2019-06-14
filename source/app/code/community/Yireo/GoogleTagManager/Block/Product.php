@@ -14,12 +14,16 @@
 class Yireo_GoogleTagManager_Block_Product extends Yireo_GoogleTagManager_Block_Default
 {
     /**
-     * @return Mage_Catalog_Model_Product|null
+     * @return Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
         $currentProduct = Mage::registry('current_product');
-        return $currentProduct;
+        if (!empty($currentProduct)) {
+            return $currentProduct;
+        }
+        
+        return Mage::getModel('catalog/product');
     }
 
     /**
