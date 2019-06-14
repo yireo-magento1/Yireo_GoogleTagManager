@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Yireo_GoogleTagManager>
-            <version>1.6.2</version>
+            <version>1.6.3</version>
         </Yireo_GoogleTagManager>
     </modules>
 
