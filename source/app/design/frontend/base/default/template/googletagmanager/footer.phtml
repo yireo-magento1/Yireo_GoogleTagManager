@@ -16,8 +16,8 @@ $helper = $this->helper('googletagmanager');
 <?php if ($helper->isDebug()) : ?>
     <pre id="googletagmanager-debug"></pre>
     <script>
-        console.log(dataLayer);
-        document.getElementById('googletagmanager-debug').innerHTML = JSON.stringify(dataLayer);
+        console.log(window.dataLayer);
+        document.getElementById('googletagmanager-debug').innerHTML = JSON.stringify(window.dataLayer);
     </script>
 <style>
     #googletagmanager-debug {

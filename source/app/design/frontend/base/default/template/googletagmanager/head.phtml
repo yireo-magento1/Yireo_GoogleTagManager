@@ -13,7 +13,7 @@
 ?>
 <?php if ($this->isEnabled()) : ?>
     <script>
-        var dataLayer = [];
+        window.dataLayer = window.dataLayer || [];
         (function (w, d, s, l, i) {
             if (i == '') { return console.log('No GTM ID provided'); }
             w[l] = w[l] || [];

@@ -16,4 +16,4 @@ if( $event = $this->getEcommerceEvent() ){
 }
 $toPush['ecommerce'] = $this->getEcommerceData();
 ?>
-dataLayer.push(<?php echo json_encode($toPush); ?>);
+window.dataLayer.push(<?php echo json_encode($toPush); ?>);
