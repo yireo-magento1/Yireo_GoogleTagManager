@@ -85,7 +85,8 @@ class Yireo_GoogleTagManager_Observer_LazyLoadDataLayer
 
         $dataLayerHtml = trim($dataLayerBlock->toHtml());
 
-        $html = str_replace('var dataLayer = [];', $dataLayerHtml, $html);
+        $search  = 'window.dataLayer = window.dataLayer || [];';
+        $html = str_replace($search, $search . $dataLayerHtml, $html);
         $transport->setHtml($html);
 
         return true;

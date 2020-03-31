@@ -34,4 +34,4 @@ $data = array(
     ),
 );
 ?>
-dataLayer.push(<?php echo $this->jsonEncode($data); ?>);
+window.dataLayer.push(<?php echo $this->jsonEncode($data); ?>);
