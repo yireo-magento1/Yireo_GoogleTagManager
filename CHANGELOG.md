@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.4] - 2020-04-01
+### Added
+- Add support for existing data layer (@sprankhub)
+
+## [1.6.3] - 2019-06-14
+### Fixed
+- Code compliance fixes
+
 ## [1.6.2] - 2019-05-22
 ### Fixed
 - Calculated price with taxes in order
