@@ -29,11 +29,13 @@ class Yireo_GoogleTagManager_Block_Customer extends Yireo_GoogleTagManager_Block
      */
     public function getCustomerGroup()
     {
-        $customer = $this->getCustomer();
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        $customerGroupId = $customerSession->getCustomerGroupId();
 
         /** @var Mage_Customer_Model_Group $customerGroup */
         $customerGroup = Mage::getSingleton('customer/group');
-        $customerGroup->load($customer->getGroupId());
+        $customerGroup->load($customerGroupId);
 
         return $customerGroup;
     }
