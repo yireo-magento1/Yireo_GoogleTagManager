@@ -27,6 +27,12 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
      */
     public function getOrder()
     {
+        if (Mage::app()->getRequest()->getRouteName() !== 'checkout'
+            || !in_array(Mage::app()->getRequest()->getControllerName(), ['onepage', 'multishipping'], true)
+            || Mage::app()->getRequest()->getActionName() !== 'success') {
+            return null;
+        }
+
         $lastOrderId = $this->getLastOrderId();
         if (empty($lastOrderId)) {
             return null;

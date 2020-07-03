@@ -39,6 +39,7 @@ if ($this->isEnabled()) {
 
         $purchase['products'] = $transactionProducts;
 
+        $this->getScriptHelper()->setEcommerceEvent('transaction');
         $this->getScriptHelper()->addEcommerceData('purchase', $purchase);
     }
 }
