@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.5] - 2020-07-03
+### Fixed
+- Fix wrong customer group tracking (@sprankhub)
+- Make sure order is only tracked once (@sprankhub)
+- Add event for order tracking (@sprankhub)
+- Fix missing currency code in checkout (@sprankhub)
+
 ## [1.6.4] - 2020-04-01
 ### Added
 - Add support for existing data layer (@sprankhub)
