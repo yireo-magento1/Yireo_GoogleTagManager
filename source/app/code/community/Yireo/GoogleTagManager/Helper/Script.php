@@ -75,10 +75,8 @@ class Yireo_GoogleTagManager_Helper_Script extends Mage_Core_Helper_Abstract
      */
     public function getEcommerceData()
     {
-        if (empty($this->ecommerceData)) {
-            $this->ecommerceData = array(
-                'currencyCode' => $this->getCurrencyCode(),
-            );
+        if (!isset($this->ecommerceData['currencyCode'])) {
+            $this->ecommerceData['currencyCode'] = $this->getCurrencyCode();
         }
 
         return $this->ecommerceData;
