@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.6] - 2020-07-08
+### Fixed
+- Set visibilty from private to protectd (@scribam)
+
 ## [1.6.5] - 2020-07-03
 ### Fixed
 - Fix wrong customer group tracking (@sprankhub)
