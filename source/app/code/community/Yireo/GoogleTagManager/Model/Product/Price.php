@@ -16,27 +16,27 @@ class Yireo_GoogleTagManager_Model_Product_Price
     /**
      * @var Mage_Tax_Model_Calculation
      */
-    private $taxCalculation;
+    protected $taxCalculation;
 
     /**
      * @var Mage_Tax_Helper_Data
      */
-    private $taxHelper;
+    protected $taxHelper;
 
     /**
      * @var Mage_Core_Model_Store
      */
-    private $store;
+    protected $store;
 
     /**
      * @var Mage_Catalog_Model_Product
      */
-    private $product;
+    protected $product;
 
     /**
      * @var Mage_Catalog_Model_Product
      */
-    private $childProduct;
+    protected $childProduct;
 
     /**
      * Yireo_GoogleTagManager_Model_Price constructor.
@@ -96,7 +96,7 @@ class Yireo_GoogleTagManager_Model_Product_Price
      * @return float
      * @throws Exception
      */
-    private function getBundledPrice($which = 'min', $includeTax = true)
+    protected function getBundledPrice($which = 'min', $includeTax = true)
     {
         $product = $this->getProduct();
 
@@ -109,7 +109,7 @@ class Yireo_GoogleTagManager_Model_Product_Price
      * @return int
      * @throws Exception
      */
-    private function getConfiguredPricePerChildProduct()
+    protected function getConfiguredPricePerChildProduct()
     {
         if (!$this->childProduct) {
             return 0;
@@ -200,7 +200,7 @@ class Yireo_GoogleTagManager_Model_Product_Price
      * @return Mage_Catalog_Model_Product
      * @throws Exception
      */
-    private function getProduct()
+    protected function getProduct()
     {
         if (!$this->product instanceof Mage_Catalog_Model_Product) {
             throw new Exception('Invalid product');
