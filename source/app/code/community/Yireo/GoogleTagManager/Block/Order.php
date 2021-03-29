@@ -74,7 +74,7 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
             $taxClassId = $product->getTaxClassId();
             $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
 
-            $data[] = array(
+            $itemData = array(
                 'id' => $product->getId(),
                 'sku' => $this->quoteEscape($item->getSku()),
                 'name' => $this->quoteEscape($item->getName()),
@@ -86,6 +86,12 @@ class Yireo_GoogleTagManager_Block_Order extends Yireo_GoogleTagManager_Block_De
                 'category' => $this->getProductCategoryTrees($product),
                 'quantity' => $item->getQtyOrdered(),
             );
+            // getData makes sure the chosen simple product / product options are ignored
+            $parentSku = $product->getData('sku');
+            if ($parentSku !== $item->getSku()) {
+                $itemData['parentsku'] = $this->quoteEscape($parentSku);
+            }
+            $data[] = $itemData;
         }
 
         return $data;
