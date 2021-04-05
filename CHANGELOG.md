@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.7] - 2021-04-05
+### Fixed
+- Add parent SKU to data layer push (@sprankhub)
+
 ## [1.6.6] - 2020-07-08
 ### Fixed
 - Set visibilty from private to protectd (@scribam)
